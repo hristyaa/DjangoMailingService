@@ -14,7 +14,7 @@ class HomePageView(TemplateView):
 
 class MailingRecipientListView(ListView):
     model = MailingRecipient
-    context_object_name = 'client'
+    context_object_name = 'clients'
     template_name = 'mailing_service/mailing_recipient_list.html'
 
 
