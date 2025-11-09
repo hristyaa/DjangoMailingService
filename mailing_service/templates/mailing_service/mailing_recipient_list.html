@@ -20,7 +20,7 @@
                     <div class="ms-2 me-auto">
                         <div>{{client.name}}</div>
                     </div>
-                    <a class="btn btn-outline-secondary btn-sm" href="#" role="button">Подробнее</a>
+                    <a class="btn btn-outline-secondary btn-sm" href="{% url 'mailing_service:detail_client' client.pk %}" role="button">Подробнее</a>
                     <div class="ms-2 btn-group" role="group">
                                     <button type="button" class="btn btn-outline-secondary dropdown-toggle btn-sm"
                                             data-bs-toggle="dropdown" aria-expanded="false">
