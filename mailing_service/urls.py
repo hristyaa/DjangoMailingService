@@ -15,11 +15,8 @@ urlpatterns = [
     path("clients/", MailingRecipientListView.as_view(), name="clients"),
     path("clients/create/", MailingRecipientCreateView.as_view(), name="create_client"),
     path("clients/<int:pk>/", MailingRecipientDetailView.as_view(), name="detail_client"),
-    path("clients/update/", MailingRecipientUpdateView.as_view(), name="update_client"),
-    # path("posts/<int:pk>/", BlogPostDetailView.as_view(), name="post_detail"),
-    # path("posts/create/", BlogPostCreateView.as_view(), name="post_create"),
-    # path("posts/update/<int:pk>/", BlogPostUpdateView.as_view(), name="post_update"),
-    # path("posts/delete/<int:pk>/", BlogPostDeleteView.as_view(), name="post_delete"),
+    path("clients/update/<int:pk>/", MailingRecipientUpdateView.as_view(), name="update_client"),
+    path("clients/delete/<int:pk>/", MailingRecipientDeleteView.as_view(), name="delete_client"),
 ]
 
 if settings.DEBUG:

@@ -39,5 +39,12 @@ class MailingRecipientUpdateView(UpdateView):
     template_name = 'mailing_service/mailing_recipient_form.html'
     success_url = reverse_lazy('mailing_service:clients')
 
-    # def get_success_url(self):
-    #     return reverse('mailing_service:client_detail', args=[self.kwargs.get('pk')])
+    def get_success_url(self):
+        return reverse('mailing_service:detail_client', args=[self.kwargs.get('pk')])
+
+
+class MailingRecipientDeleteView(DeleteView):
+    model = MailingRecipient
+    context_object_name = 'client'
+    template_name = 'mailing_service/mailing_recipient_confirm_delete.html'
+    success_url = reverse_lazy('mailing_service:clients')

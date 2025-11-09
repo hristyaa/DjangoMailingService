@@ -27,8 +27,8 @@
                                         Редактировать
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#" role="button">Изменить</a></li>
-                                        <li><a class="dropdown-item" href="#"role="button">Удалить</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'mailing_service:update_client' client.pk %}" role="button">Изменить</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'mailing_service:delete_client' client.pk %}"role="button">Удалить</a></li>
                                     </ul>
                                 </div>
                 </li>
