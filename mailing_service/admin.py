@@ -5,5 +5,5 @@ from mailing_service.models import *
 
 @admin.register(MailingRecipient)
 class MailingRecipientAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'comment')
+    list_display = ('id', 'name', 'email', 'comment')
     search_fields = ('name', 'email', 'comment')

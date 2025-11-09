@@ -1,0 +1,47 @@
+[
+{
+  "model": "mailing_service.mailingrecipient",
+  "pk": 1,
+  "fields": {
+    "email": "kopstant99@yandex.ru",
+    "name": "Наделяев Дмитрий Алексеевич",
+    "comment": "технолог, муж"
+  }
+},
+{
+  "model": "mailing_service.mailingrecipient",
+  "pk": 2,
+  "fields": {
+    "email": "uhfeuirfh@mail.ru",
+    "name": "Шулаева Галина Алексеевна",
+    "comment": "юрист"
+  }
+},
+{
+  "model": "mailing_service.mailingrecipient",
+  "pk": 3,
+  "fields": {
+    "email": "tehnomania@mail.ru",
+    "name": "Пенелопа",
+    "comment": "Кошка"
+  }
+},
+{
+  "model": "mailing_service.mailingrecipient",
+  "pk": 5,
+  "fields": {
+    "email": "petrov@gmail.com",
+    "name": "Петров Петр Петрович",
+    "comment": ""
+  }
+},
+{
+  "model": "mailing_service.mailingrecipient",
+  "pk": 6,
+  "fields": {
+    "email": "ivanov@mail.ru",
+    "name": "Иванов Иван Владимирович",
+    "comment": "Рассылка один раз в месяц"
+  }
+}
+]
