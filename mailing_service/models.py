@@ -17,3 +17,17 @@ class MailingRecipient(models.Model):
             "name",
         ]
 
+
+class MailingMessage(models.Model):
+    subject = models.CharField(max_length=250, verbose_name="Тема письма")
+    message = models.TextField(verbose_name="Письмо")
+
+    def __str__(self):
+        return f'{self.subject} - {self.message}'
+
+    class Meta:
+        verbose_name = "Cooбщение"
+        verbose_name_plural = "Сообщения"
+        ordering = [
+            "subject",
+        ]

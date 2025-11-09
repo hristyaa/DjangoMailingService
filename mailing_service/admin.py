@@ -7,3 +7,9 @@ from mailing_service.models import *
 class MailingRecipientAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'email', 'comment')
     search_fields = ('name', 'email', 'comment')
+
+
+@admin.register(MailingMessage)
+class MailingMessageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'subject', 'message')
+    search_fields = ('subject', 'message')

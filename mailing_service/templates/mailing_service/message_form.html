@@ -1,11 +1,11 @@
 {% extends 'mailing_service/base_inner.html' %}
 {% load my_tags %}
 
-{% block title %}Управление клиентами{% endblock %}
+{% block title %}Управление сообщениями{% endblock %}
 
 {% block inner_content%}
-<h3 class="display-6">Добавление нового клиента</h3>
-<p class="lead text-white-50">Управление базой клиентов для рассылок</p>
+<h3 class="display-6">Добавление нового сообщения</h3>
+<p class="lead text-white-50">Управление базой сообщений для рассылок</p>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col">
@@ -16,10 +16,10 @@
                         {{ form.as_p }}
                     </div>
                     <button type="submit" class="btn btn-secondary">
-                        {% if client %}
+                        {% if message %}
                         Сохранить
                         {% else %}
-                        Добавить клиента
+                        Добавить сообщение
                         {% endif %}
                     </button>
                 </div>

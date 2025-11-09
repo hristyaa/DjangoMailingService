@@ -1,0 +1,54 @@
+{% extends 'mailing_service/base_inner.html' %}
+{% load my_tags %}
+
+{% block title %}Управление сообщениями{% endblock %}
+
+{% block inner_content%}
+<h3 class="display-6">Сообщения</h3>
+<p class="lead text-white-50">Управление базой сообщений для рассылок</p>
+<div class="text-center">
+    <p>
+        <a class="btn btn-light" href="{% url 'mailing_service:create_message' %}" role="button">Добавить новое
+            сообщение</a>
+    </p>
+</div>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <ul class="list-group list-group-numbered">
+                {% for message in messages %}
+                <div class="col">
+                    <div class="card shadow">
+                        <div class="card-body mb-auto">
+                            <h5 class="card-title">{{message.subject}}</h5>
+                            <p class="card-text">{{message.message|truncatechars:100 }}</p>
+                            <div class="d-flex justify-content-center align-items-start">
+                                <div class="btn-group-vertical text-center">
+                                    <a class="btn btn-outline-secondary btn-sm"
+                                       href="{% url 'mailing_service:detail_message' message.pk %}" role="button">Подробнее</a>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-outline-secondary dropdown-toggle btn-sm"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                            Редактировать
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item"
+                                                   href="{% url 'mailing_service:update_message' message.pk %}"
+                                                   role="button">Изменить</a></li>
+                                            <li><a class="dropdown-item"
+                                                   href="{% url 'mailing_service:delete_message' message.pk %}"
+                                                   role="button">Удалить</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
