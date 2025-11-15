@@ -4,7 +4,7 @@
         <a class="nav-link fw-bold py-1 px-1 small {% if request.resolver_match.url_name == 'home' %}active{% endif %}" aria-current="page" href="{% url 'mailing_service:home' %}">Главная</a>
         <a class="nav-link fw-bold py-1 px-1 small {% if request.resolver_match.url_name == 'clients' %}active{% endif %}" href="{% url 'mailing_service:clients' %}">Клиенты</a>
         <a class="nav-link fw-bold py-1 px-1 small {% if request.resolver_match.url_name == 'messages' %}active{% endif %}" href="{% url 'mailing_service:messages' %}">Сообщения</a>
-        <a class="nav-link fw-bold py-1 px-1 small" href="#">Рассылки</a>
+        <a class="nav-link fw-bold py-1 px-1 small {% if request.resolver_match.url_name == 'mailings' %}active{% endif %}" href="{% url 'mailing_service:mailings' %}">Рассылки</a>
         <a class="nav-link fw-bold py-1 px-1 small" href="#">Авторизация</a>
     </nav>
 </div>

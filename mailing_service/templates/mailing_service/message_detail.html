@@ -12,12 +12,12 @@
             <div class="card">
                 <div class="card-body text-center w-auto">
                     <h5 class="card-title"> Тема письма: {{ message.subject }}</h5>
-                    <p class="card-text "> Тело письма: {{ message.message }}</p>
+                    <p class="card-text "> Соообщение: {{ message.message }}</p>
                     <div class="d-flex justify-content-center align-items-center">
                         <div class="btn-group-vertical">
                             <a class="btn btn-outline-secondary " href="{% url 'mailing_service:messages' %}"
                                role="button">Вернуться
-                                к списку клиентов</a>
+                                к списку сообщений</a>
                             <div class="btn-group" role="group">
                                 <button type="button" class="btn btn-secondary dropdown-toggle"
                                         data-bs-toggle="dropdown" aria-expanded="false">

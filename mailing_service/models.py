@@ -4,8 +4,8 @@ from django.db import models
 # Create your models here.
 
 class MailingRecipient(models.Model):
-    email = models.EmailField(unique=True, verbose_name="Электронная почта")
     name = models.CharField(max_length=250, verbose_name="Ф.И.О.")
+    email = models.EmailField(unique=True, verbose_name="Электронная почта")
     comment = models.TextField(null=True, blank=True, verbose_name="Комментарий")
 
     def __str__(self):
@@ -61,3 +61,15 @@ class Mailing(models.Model):
         ordering = [
             'status',
         ]
+
+    def recipients_list(self):
+        """Возвращает строку с получателями для админки"""
+        return ", ".join([str(recipient) for recipient in self.recipients.all()[:3]])
+
+    recipients_list.short_description = 'Получатели'
+
+    def recipients_count(self):
+        """Возвращает количество получателей"""
+        return self.recipients.count()
+
+    recipients_count.short_description = 'Кол-во получателей'
