@@ -164,7 +164,7 @@ class MailingSendView(View):
 
 def mailing_report(request):
     # Получаем все попытки, сортируя по времени
-    attempts = AttemptSendMailing.objects.order_by('attempt_time')
+    attempts = AttemptSendMailing.objects.order_by('-attempt_time')
 
     # Считаем успешные и неуспешные попытки
     success_count = AttemptSendMailing.objects.filter(status=AttemptSendMailing.SUCCESSFUL).count()

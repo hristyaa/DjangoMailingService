@@ -26,7 +26,7 @@
         {% for attempt in attempts %}
         <tr>
             <th scope="row">{{ attempt.id }}</th>
-            <td>{{ attempt.attempt_time }}</td>
+            <td>{{ attempt.attempt_time|date:"d M Y H:i" }}</td>
             {% if attempt.status == 'successful' %}
             <td class="table-success">{{ attempt.get_status_display }}</td>
             {% elif attempt.status == 'failed' %}
