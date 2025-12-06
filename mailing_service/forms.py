@@ -1,10 +1,11 @@
 from django.forms import ModelForm
-
-from mailing_service.models import *
+from django import forms
+from mailing_service.models import Mailing, MailingMessage, MailingRecipient
 from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 
-class MailingRecipientForm(StyleFormMixin, ModelForm):
+class MailingRecipientForm(ModelForm):
     class Meta:
         model = MailingRecipient
         fields = '__all__'
@@ -56,28 +57,72 @@ class MailingForm(ModelForm):
     class Meta:
         model = Mailing
         exclude = ('created_at', 'status',)
+        widgets = {
+            'start_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'end_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'message': forms.Select(attrs={'class': 'form-select', 'style': 'width: 100%;'}),
+        }
 
     def __init__(self, *args, **kwargs):
         super(MailingForm, self).__init__(*args, **kwargs)
 
-        self.fields['launched_at'].widget.attrs.update(
+        self.fields['start_time'].required = True
+        self.fields['end_time'].required = True
+
+        self.fields['start_time'].widget.attrs.update(
             {
                 'class': 'form-control',
-                'type': 'date', }
+                'type': 'datetime-local', }
         )
 
-        self.fields['completed_at'].widget.attrs.update(
+        self.fields['end_time'].widget.attrs.update(
             {
                 'class': 'form-control',
-                'type': 'date', }
+                'type': 'datetime-local', }
         )
 
         self.fields['message'].widget.attrs.update(
             {
-                'class': 'form-control', }
+                'class': 'form-control',
+                'size': '5', }
         )
 
         self.fields['recipients'].widget.attrs.update(
             {
                 'class': 'form-control', }
+
         )
+
+    def clean_start_time(self):
+        """Валидация даты и времени начала отправки (не может быть в прошлом, раньше end_time)"""
+        start_time = self.cleaned_data.get('start_time')
+        time_now = timezone.now()
+
+        if not start_time:
+            raise ValidationError('Укажите дату и время начала отправки')
+
+        if start_time:
+            if start_time < time_now:
+                raise ValidationError('Дата и время начала отправки не может быть в прошлом')
+        return start_time
+
+    def clean_end_time(self):
+        """Валидация даты и времени начала отправки (не может быть в прошлом, раньше end_time)"""
+        end_time = self.cleaned_data.get('end_time')
+        time_now = timezone.now()
+
+        if not end_time:
+            raise ValidationError('Укажите дату и время окончания отправки')
+
+        if end_time < time_now:
+            raise ValidationError('Дата и время окончания отправки не может быть в прошлом')
+        return end_time
+
+    def clean(self):
+        cleaned_data = super().clean()
+        start_time = self.cleaned_data.get('start_time')
+        end_time = self.cleaned_data.get('end_time')
+
+        if start_time and end_time:
+            if start_time >= end_time:
+                self.add_error('start_time', 'Дата и время начала отправки не может быть позже даты и времени окончания отправки')

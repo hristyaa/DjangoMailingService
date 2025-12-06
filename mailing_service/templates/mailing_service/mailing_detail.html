@@ -19,8 +19,8 @@
                             {% endfor %}
                         </p>
                         <p class="card-text text-start">Дата создания: {{mailing.created_at|date:"d M Y H:i" }}</p>
-                        <p class="card-text text-start">Дата первой отправки: {{mailing.launched_at|date:"d M Y H:i" }}</p>
-                        <p class="card-text text-start">Дата окончания отправки: {{mailing.completed_at|date:"d M Y H:i" }}</p>
+                        <p class="card-text text-start">Дата первой отправки: {{mailing.start_time|date:"d M Y H:i" }}</p>
+                        <p class="card-text text-start">Дата окончания отправки: {{mailing.end_time|date:"d M Y H:i" }}</p>
                     <div class="d-flex justify-content-center align-items-center">
                         <div class="btn-group-vertical">
                             <a class="btn btn-outline-secondary " href="{% url 'mailing_service:mailings' %}"

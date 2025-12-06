@@ -1,7 +1,8 @@
 from django.db import models
-
+from django.utils import timezone
 
 # Create your models here.
+
 
 class MailingRecipient(models.Model):
     name = models.CharField(max_length=250, verbose_name="Ф.И.О.")
@@ -44,13 +45,33 @@ class Mailing(models.Model):
         (LAUNCHED, 'Запущена'),
         (COMPLETED, 'Завершена'),
     ]
-    launched_at = models.DateTimeField(null=True, blank=True, verbose_name='Дата и время первой отправки')
-    completed_at = models.DateTimeField(null=True, blank=True, verbose_name='Дата и время окончания отправки')
+    start_time = models.DateTimeField(verbose_name='Дата и время начала отправки')
+    end_time = models.DateTimeField(verbose_name='Дата и время окончания отправки')
     status = models.CharField(max_length=12, choices=MAILING_STATUS, default=CREATED, verbose_name='Статус рассылки')
     message = models.ForeignKey(MailingMessage, on_delete=models.CASCADE, null=True, blank=True,
                                 verbose_name='Сообщение')
     recipients = models.ManyToManyField(MailingRecipient, blank=True, verbose_name='Получатели')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания рассылки')
+
+    def update_status(self):
+        '''Метод для определения статуса рассылки на основе текущего времени'''
+        time_now = timezone.now()
+        new_status = self.status
+
+        if time_now < self.start_time:
+            new_status = self.CREATED
+
+        elif time_now >= self.end_time:
+            new_status = self.COMPLETED
+
+        elif self.start_time <= time_now < self.end_time:
+            new_status = self.LAUNCHED
+
+        if self.status != new_status:
+            self.status = new_status
+            self.save()
+
+        return new_status
 
     def __str__(self):
         return f'Рассылка создана {self.created_at}, статус: {self.status}'

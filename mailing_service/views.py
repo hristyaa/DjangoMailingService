@@ -1,12 +1,10 @@
-from django.shortcuts import render
-
 # Create your views here.
 from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from mailing_service.forms import *
-from mailing_service.models import *
+from mailing_service.forms import MailingForm, MailingRecipientForm, MailingMessageForm
+from mailing_service.models import Mailing, MailingMessage, MailingRecipient
 
 
 class HomePageView(TemplateView):
@@ -56,6 +54,7 @@ class MailingMessageListView(ListView):
     context_object_name = 'messages'
     template_name = 'mailing_service/messages_list.html'
 
+
 class MailingMessageCreateView(CreateView):
     model = MailingMessage
     form_class = MailingMessageForm
@@ -93,6 +92,15 @@ class MailingListView(ListView):
     context_object_name = 'mailings'
     template_name = 'mailing_service/mailing_list.html'
 
+    def get_queryset(self):
+        mailings = super().get_queryset()
+
+        # Обновляем статусы для всех рассылок
+        for mailing in mailings:
+            mailing.update_status()
+
+        return mailings
+
 
 class MailingCreateView(CreateView):
     model = Mailing
@@ -106,6 +114,11 @@ class MailingDetailView(DetailView):
     model = Mailing
     context_object_name = 'mailing'
     template_name = 'mailing_service/mailing_detail.html'
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        obj.update_status()  # ← пересчёт и сохранение статуса
+        return obj
 
 
 class MailingUpdateView(UpdateView):
@@ -124,4 +137,3 @@ class MailingDeleteView(DeleteView):
     context_object_name = 'mailing'
     template_name = 'mailing_service/mailing_confirm_delete.html'
     success_url = reverse_lazy('mailing_service:mailings')
-

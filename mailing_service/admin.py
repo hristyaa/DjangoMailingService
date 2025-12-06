@@ -17,5 +17,5 @@ class MailingMessageAdmin(admin.ModelAdmin):
 
 @admin.register(Mailing)
 class MailingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'created_at', 'launched_at', 'completed_at', 'status', 'message', 'recipients_count', 'recipients_list',)
+    list_display = ('id', 'created_at', 'start_time', 'end_time', 'status', 'message', 'recipients_count', 'recipients_list',)
     search_fields = ('status', 'message')
