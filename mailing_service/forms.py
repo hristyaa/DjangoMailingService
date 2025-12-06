@@ -120,9 +120,12 @@ class MailingForm(ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        start_time = self.cleaned_data.get('start_time')
-        end_time = self.cleaned_data.get('end_time')
+        start_time = cleaned_data.get('start_time')
+        end_time = cleaned_data.get('end_time')
 
         if start_time and end_time:
             if start_time >= end_time:
-                self.add_error('start_time', 'Дата и время начала отправки не может быть позже даты и времени окончания отправки')
+                self.add_error(
+                    'start_time',
+                    'Дата и время начала отправки не может быть позже даты и времени окончания отправки'
+                )

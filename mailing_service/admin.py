@@ -1,7 +1,10 @@
 from django.contrib import admin
 
-from mailing_service.models import *
+from mailing_service.models import Mailing, MailingMessage, MailingRecipient
+
+
 # Register your models here.
+
 
 @admin.register(MailingRecipient)
 class MailingRecipientAdmin(admin.ModelAdmin):
@@ -17,5 +20,13 @@ class MailingMessageAdmin(admin.ModelAdmin):
 
 @admin.register(Mailing)
 class MailingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'created_at', 'start_time', 'end_time', 'status', 'message', 'recipients_count', 'recipients_list',)
+    list_display = ('id',
+                    'created_at',
+                    'start_time',
+                    'end_time',
+                    'status',
+                    'message',
+                    'recipients_count',
+                    'recipients_list',
+                    )
     search_fields = ('status', 'message')
