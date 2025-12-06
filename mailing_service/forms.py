@@ -31,6 +31,14 @@ class MailingRecipientForm(ModelForm):
             }
         )
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if not (email.endswith('@gmail.com') or
+        email.endswith('@yandex.ru') or
+        email.endswith('@mail.ru')):
+            raise ValidationError('Email должен оканчиваться на @gmail.com, @yandex.ru или @mail.ru')
+        return email
+
 
 class MailingMessageForm(ModelForm):
     class Meta:

@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+
 from .models import AttemptSendMailing
 from django.utils import timezone
 from django.core.mail import send_mail
@@ -14,6 +16,8 @@ class MailingService:
 
             for recipient in mailing.recipients.all():
                 try:
+                    self.validate_email(recipient.email)
+
                     send_mail(
                         subject=mailing.message.subject,
                         message=mailing.message.message,
@@ -29,6 +33,15 @@ class MailingService:
                         recipient=recipient,
                     )
 
+                except ValidationError as ve:
+                    AttemptSendMailing.objects.create(
+                        attempt_time=timezone.now(),
+                        status='failed',
+                        server_response=f'При отправке возникла ошибка {str(ve)}',
+                        mailing=mailing,
+                        recipient=recipient,
+                    )
+
                 except Exception as e:
                     AttemptSendMailing.objects.create(
                         attempt_time=timezone.now(),
@@ -39,3 +52,9 @@ class MailingService:
                     )
         else:
             print('Рассылка не может быть отправлена, текущее время не находится в диапазоне времени отправки')
+
+    def validate_email(self, email):
+        if not (email.endswith('@gmail.com') or
+        email.endswith('@yandex.ru') or
+        email.endswith('@mail.ru')):
+            raise ValidationError('Неверный формат email')
