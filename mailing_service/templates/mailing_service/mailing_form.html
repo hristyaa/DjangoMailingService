@@ -22,8 +22,14 @@
                         Создать рассылку
                         {% endif %}
                     </button>
+<button type="submit" class="btn btn-secondary">
+                        <a class="btn" href="{% url 'mailing_service:mailings' %}"
+                               role="button">Вернуться
+                                к списку рассылок</a>
+            </button>
                 </div>
             </form>
+
         </div>
     </div>
 </div>

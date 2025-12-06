@@ -10,4 +10,21 @@
     </p>
     <a href="#" class="btn btn-light btn-lg mt-3">Начать работу</a>
 </main>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card">
+                <div class="card-body text-center w-auto">
+                    <h5 class="card-title text-start">Показатели</h5>
+                        <p class="card-text text-start">Общее количество всех созданных рассылок:
+                            <p class="text-start mb-auto"> {{ total_mailings }}</p>
+                        <p class="card-text text-start">Количество активных рассылок:
+                            <p class="text-start mb-auto"> {{ active_mailings }}</p>
+                        <p class="card-text text-start">Количество уникальных получателей (общее количество клиентов в системе):
+                            <p class="text-start mb-auto"> {{ unique_recipients }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

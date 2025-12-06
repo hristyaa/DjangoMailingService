@@ -19,11 +19,12 @@
                 <div class="card shadow-sm">
                     <div class="card-body mb-auto">
                         <h5 class="card-title text-start">Cтатус рассылки: {{ mailing.get_status_display }}</h5>
-                        <p class="card-text text-start">Сообщение:<p class="text-start mb-auto"> {{mailing.message|truncatechars:100 }}</p></p>
+                        <p class="card-text text-start">Сообщение:
+                        <p class="text-start mb-auto"> {{mailing.message|truncatechars:100 }}</p></p>
                         <p class="card-text text-start">Получатели:
                             {% for client in mailing.recipients.all %}
-                             <p class="text-start mb-auto"> {{client.name}}</p>
-                            {% endfor %}
+                        <p class="text-start mb-auto"> {{client.name}}</p>
+                        {% endfor %}
                         </p>
                         <p class="card-text text-start">Дата создания: {{mailing.created_at|date:"d M Y H:i" }}</p>
                         <p class="card-text text-start">Дата первой отправки: {{mailing.start_time|date:"d M Y H:i" }}</p>
@@ -48,11 +49,21 @@
                                     </ul>
                                 </div>
                             </div>
-                            {% if mailing.status == 'created' %}
-                            <div class="btn-group-vertical text-center">
-                                 <a class="btn btn-outline-secondary btn-sm"
-                                   role="button">Отправить</a>
-                            </div>
+                            {% if mailing.status == 'created'%}
+                            <form method="post" action="{% url 'mailing_service:send_mailing' mailing.pk %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success">
+                                    Отправить
+                                </button>
+                            </form>
+                            {% endif %}
+                            {% if mailing.status == 'launched' %}
+                            <form method="post" action="{% url 'mailing_service:send_mailing' mailing.pk %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success">
+                                    Отправить повторно
+                                </button>
+                            </form>
                             {% endif %}
                         </div>
                     </div>

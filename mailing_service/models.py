@@ -94,3 +94,28 @@ class Mailing(models.Model):
         return self.recipients.count()
 
     recipients_count.short_description = 'Кол-во получателей'
+
+
+class AttemptSendMailing(models.Model):
+    SUCCESSFUL = 'successful'
+    FAILED = 'failed'
+
+    SEND_MAILING_STATUS = [
+        (SUCCESSFUL, 'Успешно'),
+        (FAILED, 'Не успешно'),
+    ]
+    attempt_time = models.DateTimeField(verbose_name='Дата и время начала попытки рассылки')
+    status = models.CharField(max_length=12, choices=SEND_MAILING_STATUS, verbose_name='Статус попытки рассылки')
+    server_response = models.TextField(verbose_name="Ответ почтового сервера")
+    mailing = models.ForeignKey(Mailing, on_delete=models.CASCADE, verbose_name='Рассылка')
+    recipient = models.ForeignKey(MailingRecipient, on_delete=models.CASCADE, verbose_name='Получатель' )
+
+    def __str__(self):
+        return f'{self.mailing}, {self.recipient}: {self.status} - {self.server_response}'
+
+    class Meta:
+        verbose_name = 'попытка рассылки'
+        verbose_name_plural = 'попытки рассылок'
+        ordering = [
+            'status',
+        ]

@@ -56,7 +56,7 @@ class MailingMessageForm(ModelForm):
 class MailingForm(ModelForm):
     class Meta:
         model = Mailing
-        exclude = ('created_at', 'status',)
+        exclude = ('created_at', 'status', 'is_sent')
         widgets = {
             'start_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
             'end_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),

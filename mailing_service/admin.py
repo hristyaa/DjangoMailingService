@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from mailing_service.models import Mailing, MailingMessage, MailingRecipient
+from mailing_service.models import Mailing, MailingMessage, MailingRecipient, AttemptSendMailing
 
 
 # Register your models here.
@@ -30,3 +30,16 @@ class MailingAdmin(admin.ModelAdmin):
                     'recipients_list',
                     )
     search_fields = ('status', 'message')
+
+
+@admin.register(AttemptSendMailing)
+class AttemptSendMailing(admin.ModelAdmin):
+    list_display = ('id',
+                    'attempt_time',
+                    'status',
+                    'server_response',
+                    'mailing',
+                    'recipient',
+                    )
+    search_fields = ('status', 'mailing')
+

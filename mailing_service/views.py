@@ -1,14 +1,29 @@
 # Create your views here.
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy, reverse
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import View, TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from mailing_service.forms import MailingForm, MailingRecipientForm, MailingMessageForm
 from mailing_service.models import Mailing, MailingMessage, MailingRecipient
+from mailing_service.services import MailingService
 
 
 class HomePageView(TemplateView):
     template_name = 'mailing_service/home.html'
+
+    def get_context_data(self, **kwargs):
+        total_mailings = Mailing.objects.count()  # Всего рассылок
+        active_mailings = Mailing.objects.filter(status='launched').count()  # Кол-во активных рассылок
+        unique_recipients = MailingRecipient.objects.distinct().count()  # Уникальные получатели
+
+        context = {
+            'total_mailings': total_mailings,
+            'active_mailings': active_mailings,
+            'unique_recipients': unique_recipients,
+        }
+        return context
 
 
 class MailingRecipientListView(ListView):
@@ -117,7 +132,7 @@ class MailingDetailView(DetailView):
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
-        obj.update_status()  # ← пересчёт и сохранение статуса
+        obj.update_status() # ← пересчёт и сохранение статуса
         return obj
 
 
@@ -137,3 +152,12 @@ class MailingDeleteView(DeleteView):
     context_object_name = 'mailing'
     template_name = 'mailing_service/mailing_confirm_delete.html'
     success_url = reverse_lazy('mailing_service:mailings')
+
+
+class MailingSendView(View):
+    def post(self, request, pk):
+        mailing = get_object_or_404(Mailing, pk=pk)
+        service = MailingService()
+        service.send_mailing(mailing)
+        mailing.update_status()
+        return redirect('mailing_service:detail_mailing', pk=pk)
