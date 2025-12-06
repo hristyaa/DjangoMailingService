@@ -6,7 +6,7 @@ from django.views.generic import View, TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from mailing_service.forms import MailingForm, MailingRecipientForm, MailingMessageForm
-from mailing_service.models import Mailing, MailingMessage, MailingRecipient
+from mailing_service.models import Mailing, MailingMessage, MailingRecipient, AttemptSendMailing
 from mailing_service.services import MailingService
 
 
@@ -161,3 +161,23 @@ class MailingSendView(View):
         service.send_mailing(mailing)
         mailing.update_status()
         return redirect('mailing_service:detail_mailing', pk=pk)
+
+def mailing_report(request):
+    # Получаем все попытки, сортируя по времени
+    attempts = AttemptSendMailing.objects.order_by('attempt_time')
+
+    # Считаем успешные и неуспешные попытки
+    success_count = AttemptSendMailing.objects.filter(status=AttemptSendMailing.SUCCESSFUL).count()
+    failed_count = AttemptSendMailing.objects.filter(status=AttemptSendMailing.FAILED).count()
+
+    # Общее количество отправленных сообщений
+    total_messages = attempts.count()
+
+    # Передаем данные в шаблон
+    context = {
+        'attempts': attempts,
+        'success_count': success_count,
+        'failed_count': failed_count,
+        'total_messages': total_messages,
+    }
+    return render(request, 'mailing_service/attempt_send_mailing.html', context)
