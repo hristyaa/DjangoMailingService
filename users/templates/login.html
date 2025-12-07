@@ -17,7 +17,8 @@
                     <button type="submit" class="btn btn-secondary my-1">
                         Войти
                     </button>
-                    <a class="btn btn-outline-secondary my-2" href="#" role="button"> Зарегистрироваться </a>
+                    <a class="btn btn-outline-secondary my-2" href="{% url 'users:reset_password' %}" role="button"> Забыли пароль? </a>
+                    <a class="btn btn-outline-secondary my-2" href="{% url 'users:register' %}" role="button"> Зарегистрироваться </a>
                 </div>
             </form>
 

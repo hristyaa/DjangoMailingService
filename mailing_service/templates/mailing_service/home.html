@@ -10,7 +10,7 @@
         Управляйте рассылками сообщений для клиентов.
     </p>
     {% if not user.is_authenticated %}
-    <a href="{% url 'users:login' %}" class="btn btn-light btn-lg mt-3">Начать работу</a>
+    <a href="{% url 'users:register' %}" class="btn btn-light btn-lg mt-3">Начать работу</a>
     {% endif %}
 </main>
 
