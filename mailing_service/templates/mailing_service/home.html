@@ -3,13 +3,17 @@
 {% block title %}Главная страница{% endblock %}
 
 {% block content %}
+
 <main class="container text-center my-auto">
     <h1 class="display-4 text-white">Сервис управления рассылками</h1>
     <p class="lead text-white-50">
         Управляйте рассылками сообщений для клиентов.
     </p>
-    <a href="#" class="btn btn-light btn-lg mt-3">Начать работу</a>
+    {% if not user.is_authenticated %}
+    <a href="{% url 'users:login' %}" class="btn btn-light btn-lg mt-3">Начать работу</a>
+    {% endif %}
 </main>
+
 <div class="container bg-light py-4 rounded-3">
     <div class="row justify-content-center">
         <div class="album py-5 bg-body-tertiary">
