@@ -13,6 +13,7 @@
                 <div class="card-body text-center w-auto">
                     <h5 class="card-title"> Тема письма: {{ message.subject }}</h5>
                     <p class="card-text "> Соообщение: {{ message.message }}</p>
+                    <p class="card-text ">Владелец: {{ message.owner.email }}</p>
                     <div class="d-flex justify-content-center align-items-center">
                         <div class="btn-group-vertical">
                             <a class="btn btn-outline-secondary " href="{% url 'mailing_service:messages' %}"

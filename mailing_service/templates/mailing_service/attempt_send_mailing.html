@@ -20,6 +20,7 @@
             <th scope="col">Ответ почтового сервера</th>
             <th scope="col">Тема рассылки</th>
             <th scope="col">Получатель рассылки</th>
+            <th scope="col">Владелец рассылки</th>
         </tr>
         </thead>
         <tbody>
@@ -35,6 +36,7 @@
             <td>{{ attempt.server_response }}</td>
             <td>{{ attempt.mailing.message.subject }}</td>
             <td>{{attempt.recipient }}</td>
+            <td>{{attempt.mailing.owner.email }}</td>
         </tr>
         {% endfor %}
         </tbody>

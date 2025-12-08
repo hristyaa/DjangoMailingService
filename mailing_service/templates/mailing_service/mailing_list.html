@@ -26,12 +26,13 @@
                         <p class="text-start mb-auto"> {{mailing.message|truncatechars:100 }}</p></p>
                         <p class="card-text text-start">Получатели:
                             {% for client in mailing.recipients.all %}
-                        <p class="text-start mb-auto"> {{client.name}}</p>
-                        {% endfor %}
+                            <p class="text-start mb-auto"> {{client.name}}</p>
+                            {% endfor %}
                         </p>
                         <p class="card-text text-start">Дата создания: {{mailing.created_at|date:"d M Y H:i" }}</p>
                         <p class="card-text text-start">Дата первой отправки: {{mailing.start_time|date:"d M Y H:i" }}</p>
                         <p class="card-text text-start">Дата окончания отправки: {{mailing.end_time|date:"d M Y H:i" }}</p>
+                        <p class="card-text text-start">Владелец: {{ mailing.owner.email }}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group-vertical text-center">
                                 <a class="btn btn-outline-secondary btn-sm"

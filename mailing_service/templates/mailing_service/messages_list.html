@@ -25,6 +25,7 @@
                         <div class="card-body mb-auto">
                             <h5 class="card-title">{{message.subject}}</h5>
                             <p class="card-text">{{message.message|truncatechars:100 }}</p>
+                            <p class="card-text ">Владелец: {{ message.owner.email }}</p>
                             <div class="d-flex justify-content-center align-items-start">
                                 <div class="btn-group-vertical text-center">
                                     <a class="btn btn-outline-secondary btn-sm"
