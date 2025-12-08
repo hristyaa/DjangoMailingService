@@ -1,4 +1,6 @@
 # Create your views here.
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, ListView, TemplateView, View
@@ -37,12 +39,20 @@ class MailingRecipientListView(ListView):
     template_name = "mailing_service/mailing_recipient_list.html"
 
 
-class MailingRecipientCreateView(CreateView):
+class MailingRecipientCreateView(CreateView, LoginRequiredMixin):
     model = MailingRecipient
     form_class = MailingRecipientForm
     context_object_name = "client"
     template_name = "mailing_service/mailing_recipient_form.html"
     success_url = reverse_lazy("mailing_service:clients")
+
+    def form_valid(self, form):
+        """Фиксация владельца при создании"""
+        recipient = form.save()
+        user = self.request.user
+        recipient.owner = user
+        recipient.save()
+        return super().form_valid(form)
 
 
 class MailingRecipientDetailView(DetailView):
@@ -51,7 +61,7 @@ class MailingRecipientDetailView(DetailView):
     template_name = "mailing_service/mailing_recipient_detail.html"
 
 
-class MailingRecipientUpdateView(UpdateView):
+class MailingRecipientUpdateView(UpdateView, LoginRequiredMixin):
     model = MailingRecipient
     form_class = MailingRecipientForm
     context_object_name = "client"
@@ -60,6 +70,13 @@ class MailingRecipientUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse("mailing_service:detail_client", args=[self.kwargs.get("pk")])
+
+    def get_form_class(self):
+        """ Получение доступа к форме"""
+        user = self.request.user
+        if user == self.object.owner or user.is_superuser:
+            return MailingRecipientForm
+        raise PermissionDenied
 
 
 class MailingRecipientDeleteView(DeleteView):
@@ -82,6 +99,14 @@ class MailingMessageCreateView(CreateView):
     template_name = "mailing_service/message_form.html"
     success_url = reverse_lazy("mailing_service:messages")
 
+    def form_valid(self, form):
+        """Фиксация владельца при создании"""
+        message = form.save()
+        user = self.request.user
+        message.owner = user
+        message.save()
+        return super().form_valid(form)
+
 
 class MailingMessageDetailView(DetailView):
     model = MailingMessage
@@ -98,6 +123,13 @@ class MailingMessageUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse("mailing_service:detail_message", args=[self.kwargs.get("pk")])
+
+    def get_form_class(self):
+        """Получение доступа к форме"""
+        user = self.request.user
+        if user == self.object.owner or user.is_superuser:
+            return MailingMessageForm
+        raise PermissionDenied
 
 
 class MailingMessageDeleteView(DeleteView):
@@ -129,6 +161,20 @@ class MailingCreateView(CreateView):
     template_name = "mailing_service/mailing_form.html"
     success_url = reverse_lazy("mailing_service:mailings")
 
+    def get_form_kwargs(self):
+        """Передача текущего пользователя в форму"""
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        """Фиксация владельца при создании"""
+        mailing = form.save()
+        user = self.request.user
+        mailing.owner = user
+        mailing.save()
+        return super().form_valid(form)
+
 
 class MailingDetailView(DetailView):
     model = Mailing
@@ -137,7 +183,8 @@ class MailingDetailView(DetailView):
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
-        obj.update_status()  # ← пересчёт и сохранение статуса
+        if obj.status != Mailing.COMPLETED:
+            obj.update_status()  # ← пересчёт и сохранение статуса
         return obj
 
 
@@ -151,6 +198,19 @@ class MailingUpdateView(UpdateView):
     def get_success_url(self):
         return reverse("mailing_service:detail_mailing", args=[self.kwargs.get("pk")])
 
+    def get_form_class(self):
+        """Получение доступа к форме"""
+        user = self.request.user
+        if user == self.object.owner or user.is_superuser:
+            return MailingForm
+        raise PermissionDenied
+
+    def get_form_kwargs(self):
+        """Передача текущего пользователя в форму"""
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
 
 class MailingDeleteView(DeleteView):
     model = Mailing
@@ -160,6 +220,8 @@ class MailingDeleteView(DeleteView):
 
 
 class MailingSendView(View):
+    '''Отправка рассылки'''
+
     def post(self, request, pk):
         mailing = get_object_or_404(Mailing, pk=pk)
         service = MailingService()
@@ -169,16 +231,25 @@ class MailingSendView(View):
 
 
 def mailing_report(request):
-    # Получаем все попытки, сортируя по времени
-    attempts = AttemptSendMailing.objects.order_by("-attempt_time")
+    # Получаем все текущего пользователя попытки, сортируя по времени
+    if request.user.is_superuser or request.user.has_perm('mailing_service.can_view_all_mailings'):
+        attempts = AttemptSendMailing.objects.order_by("-attempt_time")
+        success_count = AttemptSendMailing.objects.filter(
+            status=AttemptSendMailing.SUCCESSFUL
+        ).count()
+        failed_count = AttemptSendMailing.objects.filter(
+            status=AttemptSendMailing.FAILED
+        ).count()
+    else:
+        attempts = AttemptSendMailing.objects.filter(mailing__owner=request.user).order_by("-attempt_time")
 
-    # Считаем успешные и неуспешные попытки
-    success_count = AttemptSendMailing.objects.filter(
-        status=AttemptSendMailing.SUCCESSFUL
-    ).count()
-    failed_count = AttemptSendMailing.objects.filter(
-        status=AttemptSendMailing.FAILED
-    ).count()
+    # Считаем успешные и неуспешные попытки текущего пользователя
+        success_count = AttemptSendMailing.objects.filter(mailing__owner=request.user,
+                                                          status=AttemptSendMailing.SUCCESSFUL
+                                                          ).count()
+        failed_count = AttemptSendMailing.objects.filter(mailing__owner=request.user,
+                                                         status=AttemptSendMailing.FAILED
+                                                         ).count()
 
     # Общее количество отправленных сообщений
     total_messages = attempts.count()
@@ -191,3 +262,11 @@ def mailing_report(request):
         "total_messages": total_messages,
     }
     return render(request, "mailing_service/attempt_send_mailing.html", context)
+
+
+def disable_mailing(request, pk):
+    """Отключение рассылки - перевод из статуса 'запущена' в 'завершена' (для менеджеров)"""
+    mailing = get_object_or_404(Mailing, pk=pk)
+    mailing.status = "completed"
+    mailing.save()
+    return redirect('mailing_service:detail_mailing', pk=mailing.pk)

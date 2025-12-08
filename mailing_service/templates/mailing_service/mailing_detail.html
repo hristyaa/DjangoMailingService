@@ -29,7 +29,9 @@
                             <a class="btn btn-outline-secondary " href="{% url 'mailing_service:mailings' %}"
                                role="button">Вернуться
                                 к списку рассылок</a>
+                            {% if user == mailing.owner or user.is_superuser %}
                             <div class="btn-group" role="group">
+
                                 <button type="button" class="btn btn-secondary dropdown-toggle"
                                         data-bs-toggle="dropdown" aria-expanded="false">
                                     Редактировать
@@ -41,6 +43,15 @@
                                     </li>
                                 </ul>
                             </div>
+                            {% endif %}
+                            {% if mailing.status == 'launched' and perms.mailing_service.can_disable_mailing or user.is_superuser %}
+                                <form method="post" action="{% url 'mailing_service:disable_mailing' mailing.pk %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">
+                                    Отключить
+                                </button>
+                                </form>
+                                {% endif %}
                         </div>
                     </div>
                 </div>

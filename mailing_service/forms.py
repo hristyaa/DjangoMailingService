@@ -9,7 +9,7 @@ from mailing_service.models import Mailing, MailingMessage, MailingRecipient
 class MailingRecipientForm(ModelForm):
     class Meta:
         model = MailingRecipient
-        fields = "__all__"
+        exclude = ('owner',)
 
     def __init__(self, *args, **kwargs):
         super(MailingRecipientForm, self).__init__(*args, **kwargs)
@@ -50,7 +50,7 @@ class MailingRecipientForm(ModelForm):
 class MailingMessageForm(ModelForm):
     class Meta:
         model = MailingMessage
-        fields = "__all__"
+        exclude = ('owner',)
 
     def __init__(self, *args, **kwargs):
         super(MailingMessageForm, self).__init__(*args, **kwargs)
@@ -73,7 +73,7 @@ class MailingMessageForm(ModelForm):
 class MailingForm(ModelForm):
     class Meta:
         model = Mailing
-        exclude = ("created_at", "status", "is_sent")
+        exclude = ("created_at", "status", "owner")
         widgets = {
             "start_time": forms.DateTimeInput(attrs={"type": "datetime-local"}),
             "end_time": forms.DateTimeInput(attrs={"type": "datetime-local"}),
@@ -83,6 +83,7 @@ class MailingForm(ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None) # получаем пользователя из kwargs
         super(MailingForm, self).__init__(*args, **kwargs)
 
         self.fields["start_time"].required = True
@@ -114,6 +115,22 @@ class MailingForm(ModelForm):
                 "class": "form-control",
             }
         )
+
+        # фильтруем данные для текущего пользователя
+        if self.user:
+            # Для суперпользователя показываем все
+            if self.user.is_superuser:
+                self.fields["message"].queryset = MailingMessage.objects.all()
+                self.fields["recipients"].queryset = MailingRecipient.objects.all()
+            else:
+                # Для обычного пользователя - только данные, для которых он является влаельцем
+                self.fields["message"].queryset = MailingMessage.objects.filter(
+                    owner=self.user
+                )
+                self.fields["recipients"].queryset = MailingRecipient.objects.filter(
+                    owner=self.user
+                )
+
 
     def clean_start_time(self):
         """Валидация даты и времени начала отправки (не может быть в прошлом, раньше end_time)"""

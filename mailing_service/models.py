@@ -1,6 +1,9 @@
 from django.db import models
 from django.utils import timezone
 
+from users.models import User
+
+
 # Create your models here.
 
 
@@ -8,6 +11,7 @@ class MailingRecipient(models.Model):
     name = models.CharField(max_length=250, verbose_name="Ф.И.О.")
     email = models.EmailField(unique=True, verbose_name="Электронная почта")
     comment = models.TextField(null=True, blank=True, verbose_name="Комментарий")
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Владелец', null=True, blank=True)
 
     def __str__(self):
         return f"{self.name} - {self.email}"
@@ -18,11 +22,17 @@ class MailingRecipient(models.Model):
         ordering = [
             "name",
         ]
+        permissions = [
+            (
+                "can_view_all_recipients", "Может просматривать всех клиентов"
+            )
+        ]
 
 
 class MailingMessage(models.Model):
     subject = models.CharField(max_length=250, verbose_name="Тема письма")
     message = models.TextField(verbose_name="Письмо")
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Владелец', null=True, blank=True)
 
     def __str__(self):
         return f"{self.subject} - {self.message}"
@@ -32,6 +42,11 @@ class MailingMessage(models.Model):
         verbose_name_plural = "Сообщения"
         ordering = [
             "subject",
+        ]
+        permissions = [
+            (
+                "can_view_all_messages", "Может просматривать все сообщения"
+            )
         ]
 
 
@@ -66,6 +81,7 @@ class Mailing(models.Model):
     created_at = models.DateTimeField(
         auto_now_add=True, verbose_name="Дата создания рассылки"
     )
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Владелец', null=True, blank=True)
 
     def update_status(self):
         """Метод для определения статуса рассылки на основе текущего времени"""
@@ -95,6 +111,14 @@ class Mailing(models.Model):
         verbose_name_plural = "рассылки"
         ordering = [
             "status",
+        ]
+        permissions = [
+            (
+                "can_view_all_mailings", "Может просматривать все рассылки"
+            ),
+            (
+                "can_disable_mailing", "Может отключать рассылки"
+            )
         ]
 
     def recipients_list(self):

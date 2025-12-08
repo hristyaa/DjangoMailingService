@@ -18,6 +18,7 @@
                             <a class="btn btn-outline-secondary " href="{% url 'mailing_service:messages' %}"
                                role="button">Вернуться
                                 к списку сообщений</a>
+                            {% if user == message.owner or user.is_superuser %}
                             <div class="btn-group" role="group">
                                 <button type="button" class="btn btn-secondary dropdown-toggle"
                                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -30,6 +31,7 @@
                                     </li>
                                 </ul>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

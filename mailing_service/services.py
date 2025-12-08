@@ -1,10 +1,11 @@
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
+from django.shortcuts import get_object_or_404, redirect
 from django.utils import timezone
 
 from config import settings
 
-from .models import AttemptSendMailing
+from .models import AttemptSendMailing, Mailing
 
 
 class MailingService:

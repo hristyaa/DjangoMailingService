@@ -2,6 +2,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 
+from mailing_service import views
 from mailing_service.apps import MailingServiceConfig
 from mailing_service.views import (HomePageView, MailingCreateView,
                                    MailingDeleteView, MailingDetailView,
@@ -15,7 +16,7 @@ from mailing_service.views import (HomePageView, MailingCreateView,
                                    MailingRecipientDetailView,
                                    MailingRecipientListView,
                                    MailingRecipientUpdateView, MailingSendView,
-                                   MailingUpdateView, mailing_report)
+                                   MailingUpdateView, mailing_report, disable_mailing)
 
 # from . import views
 
@@ -65,6 +66,7 @@ urlpatterns = [
     ),
     path("mailings/send/<int:pk>/", MailingSendView.as_view(), name="send_mailing"),
     path("attempts/", mailing_report, name="attempts"),
+    path("mailings/disable/<int:pk>/", views.disable_mailing, name="disable_mailing"),
 ]
 
 if settings.DEBUG:
