@@ -9,7 +9,7 @@ from mailing_service.models import Mailing, MailingMessage, MailingRecipient
 class MailingRecipientForm(ModelForm):
     class Meta:
         model = MailingRecipient
-        exclude = ('owner',)
+        exclude = ("owner",)
 
     def __init__(self, *args, **kwargs):
         super(MailingRecipientForm, self).__init__(*args, **kwargs)
@@ -50,7 +50,7 @@ class MailingRecipientForm(ModelForm):
 class MailingMessageForm(ModelForm):
     class Meta:
         model = MailingMessage
-        exclude = ('owner',)
+        exclude = ("owner",)
 
     def __init__(self, *args, **kwargs):
         super(MailingMessageForm, self).__init__(*args, **kwargs)
@@ -83,7 +83,7 @@ class MailingForm(ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user', None) # получаем пользователя из kwargs
+        self.user = kwargs.pop("user", None)  # получаем пользователя из kwargs
         super(MailingForm, self).__init__(*args, **kwargs)
 
         self.fields["start_time"].required = True
@@ -130,7 +130,6 @@ class MailingForm(ModelForm):
                 self.fields["recipients"].queryset = MailingRecipient.objects.filter(
                     owner=self.user
                 )
-
 
     def clean_start_time(self):
         """Валидация даты и времени начала отправки (не может быть в прошлом, раньше end_time)"""

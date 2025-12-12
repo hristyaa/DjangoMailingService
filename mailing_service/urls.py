@@ -3,21 +3,28 @@ from django.conf.urls.static import static
 from django.urls import path
 from django.views.decorators.cache import cache_page
 
-from mailing_service import views
 from mailing_service.apps import MailingServiceConfig
-from mailing_service.views import (HomePageView, MailingCreateView,
-                                   MailingDeleteView, MailingDetailView,
-                                   MailingListView, MailingMessageCreateView,
-                                   MailingMessageDeleteView,
-                                   MailingMessageDetailView,
-                                   MailingMessageListView,
-                                   MailingMessageUpdateView,
-                                   MailingRecipientCreateView,
-                                   MailingRecipientDeleteView,
-                                   MailingRecipientDetailView,
-                                   MailingRecipientListView,
-                                   MailingRecipientUpdateView, MailingSendView,
-                                   MailingUpdateView, mailing_report, disable_mailing)
+from mailing_service.views import (
+    HomePageView,
+    MailingCreateView,
+    MailingDeleteView,
+    MailingDetailView,
+    MailingListView,
+    MailingMessageCreateView,
+    MailingMessageDeleteView,
+    MailingMessageDetailView,
+    MailingMessageListView,
+    MailingMessageUpdateView,
+    MailingRecipientCreateView,
+    MailingRecipientDeleteView,
+    MailingRecipientDetailView,
+    MailingRecipientListView,
+    MailingRecipientUpdateView,
+    MailingSendView,
+    MailingUpdateView,
+    disable_mailing,
+    mailing_report,
+)
 
 # from . import views
 
@@ -26,10 +33,14 @@ app_name = MailingServiceConfig.name
 
 urlpatterns = [
     path("", HomePageView.as_view(), name="home"),
-    path("clients/", cache_page(60)(MailingRecipientListView.as_view()), name="clients"),
+    path(
+        "clients/", cache_page(60)(MailingRecipientListView.as_view()), name="clients"
+    ),
     path("clients/create/", MailingRecipientCreateView.as_view(), name="create_client"),
     path(
-        "clients/<int:pk>/", cache_page(60)(MailingRecipientDetailView.as_view()), name="detail_client"
+        "clients/<int:pk>/",
+        cache_page(60)(MailingRecipientDetailView.as_view()),
+        name="detail_client",
     ),
     path(
         "clients/update/<int:pk>/",
@@ -41,10 +52,14 @@ urlpatterns = [
         MailingRecipientDeleteView.as_view(),
         name="delete_client",
     ),
-    path("messages/", cache_page(60)(MailingMessageListView.as_view()), name="messages"),
+    path(
+        "messages/", cache_page(60)(MailingMessageListView.as_view()), name="messages"
+    ),
     path("messages/create/", MailingMessageCreateView.as_view(), name="create_message"),
     path(
-        "messages/<int:pk>/", cache_page(60)(MailingMessageDetailView.as_view()), name="detail_message"
+        "messages/<int:pk>/",
+        cache_page(60)(MailingMessageDetailView.as_view()),
+        name="detail_message",
     ),
     path(
         "messages/update/<int:pk>/",
@@ -67,7 +82,7 @@ urlpatterns = [
     ),
     path("mailings/send/<int:pk>/", MailingSendView.as_view(), name="send_mailing"),
     path("attempts/", mailing_report, name="attempts"),
-    path("mailings/disable/<int:pk>/", views.disable_mailing, name="disable_mailing"),
+    path("mailings/disable/<int:pk>/", disable_mailing, name="disable_mailing"),
 ]
 
 if settings.DEBUG:

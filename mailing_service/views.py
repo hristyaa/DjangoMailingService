@@ -6,11 +6,19 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, ListView, TemplateView, View
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from mailing_service.forms import (MailingForm, MailingMessageForm,
-                                   MailingRecipientForm)
-from mailing_service.models import (AttemptSendMailing, Mailing,
-                                    MailingMessage, MailingRecipient)
-from mailing_service.services import MailingService
+from mailing_service.forms import MailingForm, MailingMessageForm, MailingRecipientForm
+from mailing_service.models import (
+    AttemptSendMailing,
+    Mailing,
+    MailingMessage,
+    MailingRecipient,
+)
+from mailing_service.services import (
+    MailingService,
+    get_mailing_from_cache,
+    get_messages_from_cache,
+    get_recipient_from_cache,
+)
 
 
 class HomePageView(TemplateView):
@@ -39,7 +47,9 @@ class MailingRecipientListView(ListView):
     template_name = "mailing_service/mailing_recipient_list.html"
 
     def get_queryset(self):
-        if self.request.user.is_superuser or self.request.user.has_perm('mailing_service.can_view_all_recipients'):
+        if self.request.user.is_superuser or self.request.user.has_perm(
+            "mailing_service.can_view_all_recipients"
+        ):
             return MailingRecipient.objects.all()
         elif self.request.user.is_authenticated:
             return MailingRecipient.objects.filter(owner=self.request.user)
@@ -67,10 +77,7 @@ class MailingRecipientDetailView(DetailView):
     template_name = "mailing_service/mailing_recipient_detail.html"
 
     def get_queryset(self):
-        if self.request.user.is_superuser or self.request.user.has_perm('mailing_service.can_view_all_recipients'):
-            return MailingRecipient.objects.all()
-        elif self.request.user.is_authenticated:
-            return MailingRecipient.objects.filter(owner=self.request.user)
+        return get_recipient_from_cache()
 
 
 class MailingRecipientUpdateView(UpdateView, LoginRequiredMixin):
@@ -84,7 +91,7 @@ class MailingRecipientUpdateView(UpdateView, LoginRequiredMixin):
         return reverse("mailing_service:detail_client", args=[self.kwargs.get("pk")])
 
     def get_form_class(self):
-        """ Получение доступа к форме"""
+        """Получение доступа к форме"""
         user = self.request.user
         if user == self.object.owner or user.is_superuser:
             return MailingRecipientForm
@@ -104,7 +111,9 @@ class MailingMessageListView(ListView):
     template_name = "mailing_service/messages_list.html"
 
     def get_queryset(self):
-        if self.request.user.is_superuser or self.request.user.has_perm('mailing_service.can_view_all_messages'):
+        if self.request.user.is_superuser or self.request.user.has_perm(
+            "mailing_service.can_view_all_messages"
+        ):
             return MailingMessage.objects.all()
         elif self.request.user.is_authenticated:
             return MailingMessage.objects.filter(owner=self.request.user)
@@ -132,10 +141,7 @@ class MailingMessageDetailView(DetailView):
     template_name = "mailing_service/message_detail.html"
 
     def get_queryset(self):
-        if self.request.user.is_superuser or self.request.user.has_perm('mailing_service.can_view_all_messages'):
-            return MailingMessage.objects.all()
-        elif self.request.user.is_authenticated:
-            return MailingMessage.objects.filter(owner=self.request.user)
+        return get_messages_from_cache()
 
 
 class MailingMessageUpdateView(UpdateView):
@@ -175,10 +181,13 @@ class MailingListView(ListView):
         for mailing in mailings:
             mailing.update_status()
 
-        if self.request.user.is_superuser or self.request.user.has_perm('mailing_service.can_view_all_mailings'):
+        if self.request.user.is_superuser or self.request.user.has_perm(
+            "mailing_service.can_view_all_mailings"
+        ):
             return mailings
         elif self.request.user.is_authenticated:
             return mailings.filter(owner=self.request.user)
+
 
 class MailingCreateView(CreateView):
     model = Mailing
@@ -190,7 +199,7 @@ class MailingCreateView(CreateView):
     def get_form_kwargs(self):
         """Передача текущего пользователя в форму"""
         kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user
+        kwargs["user"] = self.request.user
         return kwargs
 
     def form_valid(self, form):
@@ -214,10 +223,7 @@ class MailingDetailView(DetailView):
         return obj
 
     def get_queryset(self):
-        if self.request.user.is_superuser or self.request.user.has_perm('mailing_service.can_view_all_mailings'):
-            return Mailing.objects.all()
-        elif self.request.user.is_authenticated:
-            return Mailing.objects.filter(owner=self.request.user)
+        return get_mailing_from_cache()
 
 
 class MailingUpdateView(UpdateView):
@@ -240,7 +246,7 @@ class MailingUpdateView(UpdateView):
     def get_form_kwargs(self):
         """Передача текущего пользователя в форму"""
         kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user
+        kwargs["user"] = self.request.user
         return kwargs
 
 
@@ -252,7 +258,7 @@ class MailingDeleteView(DeleteView):
 
 
 class MailingSendView(View):
-    '''Отправка рассылки'''
+    """Отправка рассылки"""
 
     def post(self, request, pk):
         mailing = get_object_or_404(Mailing, pk=pk)
@@ -264,7 +270,9 @@ class MailingSendView(View):
 
 def mailing_report(request):
     # Получаем все  попытки текущего пользователя, сортируя по времени
-    if request.user.is_superuser or request.user.has_perm('mailing_service.can_view_all_mailings'):
+    if request.user.is_superuser or request.user.has_perm(
+        "mailing_service.can_view_all_mailings"
+    ):
         attempts = AttemptSendMailing.objects.order_by("-attempt_time")
         success_count = AttemptSendMailing.objects.filter(
             status=AttemptSendMailing.SUCCESSFUL
@@ -273,15 +281,17 @@ def mailing_report(request):
             status=AttemptSendMailing.FAILED
         ).count()
     else:
-        attempts = AttemptSendMailing.objects.filter(mailing__owner=request.user).order_by("-attempt_time")
+        attempts = AttemptSendMailing.objects.filter(
+            mailing__owner=request.user
+        ).order_by("-attempt_time")
 
-    # Считаем успешные и неуспешные попытки текущего пользователя
-        success_count = AttemptSendMailing.objects.filter(mailing__owner=request.user,
-                                                          status=AttemptSendMailing.SUCCESSFUL
-                                                          ).count()
-        failed_count = AttemptSendMailing.objects.filter(mailing__owner=request.user,
-                                                         status=AttemptSendMailing.FAILED
-                                                         ).count()
+        # Считаем успешные и неуспешные попытки текущего пользователя
+        success_count = AttemptSendMailing.objects.filter(
+            mailing__owner=request.user, status=AttemptSendMailing.SUCCESSFUL
+        ).count()
+        failed_count = AttemptSendMailing.objects.filter(
+            mailing__owner=request.user, status=AttemptSendMailing.FAILED
+        ).count()
 
     # Общее количество отправленных сообщений
     total_messages = attempts.count()
@@ -301,4 +311,4 @@ def disable_mailing(request, pk):
     mailing = get_object_or_404(Mailing, pk=pk)
     mailing.status = "completed"
     mailing.save()
-    return redirect('mailing_service:detail_mailing', pk=mailing.pk)
+    return redirect("mailing_service:detail_mailing", pk=mailing.pk)

@@ -4,9 +4,11 @@ from django.contrib.auth.views import LogoutView
 from django.urls import path
 
 from users.apps import UsersConfig
-from users.views import UserCreateView, email_verification, UserPasswordResetView, UserPasswordResetDoneView, \
-    UserPasswordResetConfirmView, UserPasswordResetCompleteView, UserListView, UserDetailView, blocked_users, \
-    unblocked_users, UserLoginView
+from users.views import (UserCreateView, UserDetailView, UserListView,
+                         UserLoginView, UserPasswordResetCompleteView,
+                         UserPasswordResetConfirmView,
+                         UserPasswordResetDoneView, UserPasswordResetView,
+                         blocked_users, email_verification, unblocked_users)
 
 # from . import views
 

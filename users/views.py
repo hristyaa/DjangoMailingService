@@ -1,18 +1,18 @@
 import secrets
 
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, \
-    PasswordResetCompleteView, LoginView
+from django.contrib.auth.views import (LoginView, PasswordResetCompleteView,
+                                       PasswordResetConfirmView,
+                                       PasswordResetDoneView,
+                                       PasswordResetView)
+from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse_lazy
 from django.urls.base import reverse
+from django.views.generic import (CreateView, DetailView, ListView)
 
 from config import settings
-from django.urls import reverse_lazy
-from django.core.mail import send_mail
-
-from django.views.generic import CreateView, TemplateView, ListView, DetailView, UpdateView
-
-from users.forms import UserRegisterForm, UserLoginForm
+from users.forms import UserLoginForm, UserRegisterForm
 from users.models import User
 
 
@@ -88,7 +88,7 @@ class UserPasswordResetView(PasswordResetView):
     '''Класс позволяет пользователю сбросить пароль, сгенерировав одноразовую ссылку,
     которую можно использовать для сброса пароля,
     и отправив эту ссылку на зарегистрированный адрес электронной почты пользователя.'''
-    email_template_name = "users/password_reset_email.html" # письмо, которое придет на почту
+    email_template_name = "users/password_reset_email.html"  # письмо, которое придет на почту
     success_url = reverse_lazy("users:password_reset_done")
     template_name = "users/password_reset_form.html"
 
@@ -108,7 +108,3 @@ class UserPasswordResetCompleteView(PasswordResetCompleteView):
     """Информация о смене пароля"""
     template_name = "users/password_reset_complete.html"
     success_url = reverse_lazy("users:login")
-
-
-
-

@@ -9,7 +9,8 @@ def media_filter(path):
         return f"/media/{path}"
     return "#"
 
-@register.filter(name='in_group')
+
+@register.filter(name="in_group")
 def in_group(user, group_name):
     """Проверяет, состоит ли пользователь в указанной группе"""
     if user.is_authenticated:

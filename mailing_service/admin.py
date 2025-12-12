@@ -1,7 +1,11 @@
 from django.contrib import admin
 
-from mailing_service.models import (AttemptSendMailing, Mailing,
-                                    MailingMessage, MailingRecipient)
+from mailing_service.models import (
+    AttemptSendMailing,
+    Mailing,
+    MailingMessage,
+    MailingRecipient,
+)
 
 # Register your models here.
 

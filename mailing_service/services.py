@@ -1,11 +1,12 @@
+from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
-from django.shortcuts import get_object_or_404, redirect
 from django.utils import timezone
 
 from config import settings
+from config.settings import CACHE_ENABLED
 
-from .models import AttemptSendMailing, Mailing
+from .models import AttemptSendMailing, Mailing, MailingMessage, MailingRecipient
 
 
 class MailingService:
@@ -63,3 +64,39 @@ class MailingService:
             or email.endswith("@mail.ru")
         ):
             raise ValidationError("Неверный формат email")
+
+
+def get_recipient_from_cache():
+    """Получение клиентов (получателей рассылки) из кэша, если кэш пуст, получаем данные из бд"""
+    if not CACHE_ENABLED:
+        return MailingRecipient.objects.all()
+    recipients = cache.get("recipients_list")
+    if recipients is not None:
+        return recipients
+    recipients = MailingRecipient.objects.all()
+    cache.set("recipients_list", recipients)
+    return recipients
+
+
+def get_messages_from_cache():
+    """Получение сообщений из кэша, если кэш пуст, получаем данные из бд"""
+    if not CACHE_ENABLED:
+        return MailingMessage.objects.all()
+    messages = cache.get("messages_list")
+    if messages is not None:
+        return messages
+    messages = MailingMessage.objects.all()
+    cache.set("messages_list", messages)
+    return messages
+
+
+def get_mailing_from_cache():
+    """Получение рассылки из кэша, если кэш пуст, получаем данные из бд"""
+    if not CACHE_ENABLED:
+        return Mailing.objects.all()
+    mailings = cache.get("mailings_list")
+    if mailings is not None:
+        return mailings
+    mailings = Mailing.objects.all()
+    cache.set("mailings_list", mailings)
+    return mailings
