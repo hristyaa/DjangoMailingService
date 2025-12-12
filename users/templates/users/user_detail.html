@@ -10,6 +10,7 @@
         <div class="col-md-8 col-lg-6">
             <div class="card">
                 <div class="card-body text-center w-auto">
+                    {% if not account_user.is_superuser %}
                     <h5 class="card-title text-start">Пользователь: {{ account_user.email }}</h5>
                         <p class="card-text text-start">Телефон: {{ account_user.phone }}</p></p>
                         <p class="card-text text-start">Страна: {{ account_user.country }} </p>
@@ -32,6 +33,7 @@
                                 к списку пользователей</a>
                         </div>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
