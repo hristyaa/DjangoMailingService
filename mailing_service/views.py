@@ -38,6 +38,12 @@ class MailingRecipientListView(ListView):
     context_object_name = "clients"
     template_name = "mailing_service/mailing_recipient_list.html"
 
+    def get_queryset(self):
+        if self.request.user.is_superuser or self.request.user.has_perm('mailing_service.can_view_all_recipients'):
+            return MailingRecipient.objects.all()
+        elif self.request.user.is_authenticated:
+            return MailingRecipient.objects.filter(owner=self.request.user)
+
 
 class MailingRecipientCreateView(CreateView, LoginRequiredMixin):
     model = MailingRecipient
@@ -59,6 +65,12 @@ class MailingRecipientDetailView(DetailView):
     model = MailingRecipient
     context_object_name = "client"
     template_name = "mailing_service/mailing_recipient_detail.html"
+
+    def get_queryset(self):
+        if self.request.user.is_superuser or self.request.user.has_perm('mailing_service.can_view_all_recipients'):
+            return MailingRecipient.objects.all()
+        elif self.request.user.is_authenticated:
+            return MailingRecipient.objects.filter(owner=self.request.user)
 
 
 class MailingRecipientUpdateView(UpdateView, LoginRequiredMixin):
@@ -91,6 +103,12 @@ class MailingMessageListView(ListView):
     context_object_name = "messages"
     template_name = "mailing_service/messages_list.html"
 
+    def get_queryset(self):
+        if self.request.user.is_superuser or self.request.user.has_perm('mailing_service.can_view_all_messages'):
+            return MailingMessage.objects.all()
+        elif self.request.user.is_authenticated:
+            return MailingMessage.objects.filter(owner=self.request.user)
+
 
 class MailingMessageCreateView(CreateView):
     model = MailingMessage
@@ -112,6 +130,12 @@ class MailingMessageDetailView(DetailView):
     model = MailingMessage
     context_object_name = "message"
     template_name = "mailing_service/message_detail.html"
+
+    def get_queryset(self):
+        if self.request.user.is_superuser or self.request.user.has_perm('mailing_service.can_view_all_messages'):
+            return MailingMessage.objects.all()
+        elif self.request.user.is_authenticated:
+            return MailingMessage.objects.filter(owner=self.request.user)
 
 
 class MailingMessageUpdateView(UpdateView):
@@ -151,8 +175,10 @@ class MailingListView(ListView):
         for mailing in mailings:
             mailing.update_status()
 
-        return mailings
-
+        if self.request.user.is_superuser or self.request.user.has_perm('mailing_service.can_view_all_mailings'):
+            return mailings
+        elif self.request.user.is_authenticated:
+            return mailings.filter(owner=self.request.user)
 
 class MailingCreateView(CreateView):
     model = Mailing
@@ -186,6 +212,12 @@ class MailingDetailView(DetailView):
         if obj.status != Mailing.COMPLETED:
             obj.update_status()  # ← пересчёт и сохранение статуса
         return obj
+
+    def get_queryset(self):
+        if self.request.user.is_superuser or self.request.user.has_perm('mailing_service.can_view_all_mailings'):
+            return Mailing.objects.all()
+        elif self.request.user.is_authenticated:
+            return Mailing.objects.filter(owner=self.request.user)
 
 
 class MailingUpdateView(UpdateView):
