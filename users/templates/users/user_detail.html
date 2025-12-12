@@ -1,0 +1,43 @@
+{% extends 'mailing_service/base_inner.html' %}
+{% load my_tags %}
+
+{% block title %}Пользователь{% endblock %}
+
+{% block inner_content%}
+<h3 class="display-6">Пользователь</h3>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card">
+                <div class="card-body text-center w-auto">
+                    {% if not account_user.is_superuser %}
+                    <h5 class="card-title text-start">Пользователь: {{ account_user.email }}</h5>
+                        <p class="card-text text-start">Телефон: {{ account_user.phone }}</p></p>
+                        <p class="card-text text-start">Страна: {{ account_user.country }} </p>
+                        <p class="card-text text-start">Статус активности: {% if account_user.is_active %}
+                        <span class="badge bg-success">Активен
+                        </span>
+                        {% else %}
+                        <span class="badge bg-danger">Неактивен</span>
+                        {% endif %}</p>
+                        <p class="card-text text-start">Статус блокировки: {% if not account_user.is_blocked %}
+                        <span class="badge bg-success">Не заблокирован
+                        </span>
+                        {% else %}
+                        <span class="badge bg-danger">Заблокирован</span>
+                        {% endif %}</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="btn-group-vertical">
+                            <a class="btn btn-outline-secondary " href="{% url 'users:users' %}"
+                               role="button">Вернуться
+                                к списку пользователей</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'mailing_service/base_inner.html' %}
+{% load my_tags %}
+
+{% block title %}Попытки рассылок{% endblock %}
+
+{% block inner_content%}
+<h3 class="display-6">Попытки рассылок</h3>
+
+<div class="album py-5 bg-body-tertiary">
+    <li class="list-group-item list-group-item-info">Всего попыток: {{ total_messages }},
+        из них успешных - {{ success_count }},
+        неуспешных - {{ failed_count }}
+    </li>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">№ Попытки</th>
+            <th scope="col">Время попытки</th>
+            <th scope="col">Статус попытки</th>
+            <th scope="col">Ответ почтового сервера</th>
+            <th scope="col">Тема рассылки</th>
+            <th scope="col">Получатель рассылки</th>
+            <th scope="col">Владелец рассылки</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for attempt in attempts %}
+        <tr>
+            <th scope="row">{{ attempt.id }}</th>
+            <td>{{ attempt.attempt_time|date:"d M Y H:i" }}</td>
+            {% if attempt.status == 'successful' %}
+            <td class="table-success">{{ attempt.get_status_display }}</td>
+            {% elif attempt.status == 'failed' %}
+            <td class="table-danger">{{ attempt.get_status_display }}</td>
+            {% endif %}
+            <td>{{ attempt.server_response }}</td>
+            <td>{{ attempt.mailing.message.subject }}</td>
+            <td>{{attempt.recipient }}</td>
+            <td>{{attempt.mailing.owner.email }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'mailing_service/base_inner.html' %}
+{% load my_tags %}
+
+{% block title %}Управление рассылками{% endblock %}
+
+{% block inner_content%}
+<h3 class="display-6">Рассылки</h3>
+<p class="lead text-white-50">Управление базой рассылок</p>
+{% if not user|in_group:'Менеджеры' %}
+<div class="text-center">
+    <p>
+        <a class="btn btn-light" href="{% url 'mailing_service:create_mailing' %}" role="button">Создать рассылку</a>
+    </p>
+</div>
+{% endif %}
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for mailing in mailings %}
+            {% if user == mailing.owner or perms.mailing_service.can_view_all_mailings or user.is_superuser %}
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="card-body mb-auto">
+                        <h5 class="card-title text-start">Cтатус рассылки: {{ mailing.get_status_display }}</h5>
+                        <p class="card-text text-start">Сообщение:
+                        <p class="text-start mb-auto"> {{mailing.message|truncatechars:100 }}</p></p>
+                        <p class="card-text text-start">Получатели:
+                            {% for client in mailing.recipients.all %}
+                            <p class="text-start mb-auto"> {{client.name}}</p>
+                            {% endfor %}
+                        </p>
+                        <p class="card-text text-start">Дата создания: {{mailing.created_at|date:"d M Y H:i" }}</p>
+                        <p class="card-text text-start">Дата первой отправки: {{mailing.start_time|date:"d M Y H:i" }}</p>
+                        <p class="card-text text-start">Дата окончания отправки: {{mailing.end_time|date:"d M Y H:i" }}</p>
+                        <p class="card-text text-start">Владелец: {{ mailing.owner.email }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group-vertical text-center">
+                                <a class="btn btn-outline-secondary btn-sm"
+                                   href="{% url 'mailing_service:detail_mailing' mailing.pk %}"
+                                   role="button">Подробнее</a>
+                                {% if user == mailing.owner or user.is_superuser %}
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-outline-secondary dropdown-toggle btn-sm"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                        Редактировать
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item"
+                                               href="{% url 'mailing_service:update_mailing' mailing.pk %}"
+                                               role="button">Изменить</a></li>
+                                        <li><a class="dropdown-item"
+                                               href="{% url 'mailing_service:delete_mailing' mailing.pk %}"
+                                               role="button">Удалить</a></li>
+                                    </ul>
+                                </div>
+                                {% endif %}
+                                {% if mailing.status == 'launched' and perms.mailing_service.can_disable_mailing or user.is_superuser %}
+                                <form method="post" action="{% url 'mailing_service:disable_mailing' mailing.pk %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">
+                                    Отключить
+                                </button>
+                                </form>
+                                {% endif %}
+                            </div>
+                            {% if mailing.status == 'created'%}
+                            <form method="post" action="{% url 'mailing_service:send_mailing' mailing.pk %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success">
+                                    Отправить
+                                </button>
+                            </form>
+                            {% endif %}
+                            {% if mailing.status == 'launched' %}
+                            <form method="post" action="{% url 'mailing_service:send_mailing' mailing.pk %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success">
+                                    Отправить повторно
+                                </button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            {% endif %}
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,29 @@
+from django import forms
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+
+from users.models import User
+
+
+class UserRegisterForm(UserCreationForm):
+    '''Форма для регистрации пользователя'''
+    class Meta:
+        model = User
+        fields = ('email', 'phone', 'avatar', 'country', 'password1', 'password2')
+
+
+class UserLoginForm(AuthenticationForm):
+    """Форма для авторизации (Валидация при блокировке аккаунта)"""
+    username = forms.EmailField(label="Email")
+
+    def confirm_login_allowed(self, user):
+        if user.is_blocked:
+            raise forms.ValidationError(
+                "Аккаунт заблокирован.",
+                code="blocked"
+            )
+
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['email', 'avatar', 'phone', 'country']

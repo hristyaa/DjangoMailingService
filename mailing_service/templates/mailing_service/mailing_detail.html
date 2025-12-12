@@ -1,0 +1,64 @@
+{% extends 'mailing_service/base_inner.html' %}
+{% load my_tags %}
+
+{% block title %}Управление рассылками{% endblock %}
+
+{% block inner_content%}
+<h3 class="display-6">Рассылка</h3>
+<p class="lead text-white-50">Управление базой рассылок</p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card">
+                <div class="card-body text-center w-auto">
+                    <h5 class="card-title text-start">Cтатус рассылки: {{ mailing.get_status_display }}</h5>
+                        <p class="card-text text-start">Сообщение:<p class="text-start mb-auto"> {{mailing.message }}</p></p>
+                        <p class="card-text text-start">Получатели:
+                            {% for client in mailing.recipients.all %}
+                             <p class="text-start mb-auto"> {{client.name}}</p>
+                            {% endfor %}
+                        </p>
+                        <p class="card-text text-start">Дата создания: {{mailing.created_at|date:"d M Y H:i" }}</p>
+                        <p class="card-text text-start">Дата первой отправки: {{mailing.start_time|date:"d M Y H:i" }}</p>
+                        <p class="card-text text-start">Дата окончания отправки: {{mailing.end_time|date:"d M Y H:i" }}</p>
+                        <p class="card-text text-start">Владелец: {{ mailing.owner.email }}</p>
+                        {% if mailing.status == 'created' %}
+                        <p class="card-text text-start">Рассылка не может быть отправлена, запланированное время отправки не наступило</p>
+                        {% endif %}
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="btn-group-vertical">
+                            <a class="btn btn-outline-secondary " href="{% url 'mailing_service:mailings' %}"
+                               role="button">Вернуться
+                                к списку рассылок</a>
+                            {% if user == mailing.owner or user.is_superuser %}
+                            <div class="btn-group" role="group">
+
+                                <button type="button" class="btn btn-secondary dropdown-toggle"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    Редактировать
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{% url 'mailing_service:update_mailing' mailing.pk %}" role="button">Изменить</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="{% url 'mailing_service:delete_mailing' mailing.pk %}" role="button">Удалить</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            {% endif %}
+                            {% if mailing.status == 'launched' and perms.mailing_service.can_disable_mailing or user.is_superuser %}
+                                <form method="post" action="{% url 'mailing_service:disable_mailing' mailing.pk %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">
+                                    Отключить
+                                </button>
+                                </form>
+                                {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

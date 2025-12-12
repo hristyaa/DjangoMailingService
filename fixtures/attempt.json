@@ -1,0 +1,673 @@
+[
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 1,
+  "fields": {
+    "attempt_time": "2025-12-06T12:46:19.388Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 13,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 2,
+  "fields": {
+    "attempt_time": "2025-12-06T12:46:20.730Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 13,
+    "recipient": 7
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 3,
+  "fields": {
+    "attempt_time": "2025-12-06T12:46:22.328Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 13,
+    "recipient": 3
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 4,
+  "fields": {
+    "attempt_time": "2025-12-06T12:46:23.728Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 13,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 5,
+  "fields": {
+    "attempt_time": "2025-12-06T12:46:25.069Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 13,
+    "recipient": 7
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 6,
+  "fields": {
+    "attempt_time": "2025-12-06T12:46:26.394Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 13,
+    "recipient": 3
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 7,
+  "fields": {
+    "attempt_time": "2025-12-06T12:46:27.763Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 13,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 8,
+  "fields": {
+    "attempt_time": "2025-12-06T12:46:29.152Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 13,
+    "recipient": 7
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 9,
+  "fields": {
+    "attempt_time": "2025-12-06T12:46:30.672Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 13,
+    "recipient": 3
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 10,
+  "fields": {
+    "attempt_time": "2025-12-06T12:57:05.213Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 13,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 11,
+  "fields": {
+    "attempt_time": "2025-12-06T12:57:06.571Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 13,
+    "recipient": 7
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 12,
+  "fields": {
+    "attempt_time": "2025-12-06T12:59:12.820Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 7,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 13,
+  "fields": {
+    "attempt_time": "2025-12-06T12:59:14.177Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 7,
+    "recipient": 7
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 14,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:43.440Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 11,
+    "recipient": 3
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 15,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:45.027Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 8,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 16,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:45.545Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 11,
+    "recipient": 3
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 17,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:46.327Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 4,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 18,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:46.883Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 8,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 19,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:47.819Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 4,
+    "recipient": 3
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 20,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:48.165Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 4,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 21,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:49.292Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 4,
+    "recipient": 5
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 22,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:49.475Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 4,
+    "recipient": 3
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 23,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:50.550Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 15,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 24,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:50.887Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 4,
+    "recipient": 5
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 25,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:51.935Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 15,
+    "recipient": 7
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 26,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:52.198Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 15,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 27,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:52.991Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 11,
+    "recipient": 3
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 28,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:53.234Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 15,
+    "recipient": 3
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 29,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:53.504Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 15,
+    "recipient": 7
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 30,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:54.287Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 8,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 31,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:54.525Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 10,
+    "recipient": 6
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 32,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:55.120Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 15,
+    "recipient": 3
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 33,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:55.633Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 4,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 34,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:55.886Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 10,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 35,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:56.409Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 10,
+    "recipient": 6
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 36,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:56.998Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 4,
+    "recipient": 3
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 37,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:57.233Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 10,
+    "recipient": 7
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 38,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:57.761Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 10,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 39,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:58.355Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 4,
+    "recipient": 5
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 40,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:58.522Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 14,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 41,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:59.192Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 10,
+    "recipient": 7
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 42,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:59.725Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 15,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 43,
+  "fields": {
+    "attempt_time": "2025-12-06T13:08:59.805Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 7,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 44,
+  "fields": {
+    "attempt_time": "2025-12-06T13:09:00.716Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 14,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 45,
+  "fields": {
+    "attempt_time": "2025-12-06T13:09:01.103Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 7,
+    "recipient": 7
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 46,
+  "fields": {
+    "attempt_time": "2025-12-06T13:09:01.141Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 15,
+    "recipient": 7
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 47,
+  "fields": {
+    "attempt_time": "2025-12-06T13:09:02.111Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 7,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 48,
+  "fields": {
+    "attempt_time": "2025-12-06T13:32:40.772Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 7,
+    "recipient": 7
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 49,
+  "fields": {
+    "attempt_time": "2025-12-06T13:34:13.203Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 7,
+    "recipient": 7
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 50,
+  "fields": {
+    "attempt_time": "2025-12-06T13:43:28.626Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 7,
+    "recipient": 7
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 51,
+  "fields": {
+    "attempt_time": "2025-12-06T14:01:04.802Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 16,
+    "recipient": 7
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 52,
+  "fields": {
+    "attempt_time": "2025-12-06T15:01:14.922Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 17,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 53,
+  "fields": {
+    "attempt_time": "2025-12-06T15:03:24.140Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 18,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 54,
+  "fields": {
+    "attempt_time": "2025-12-06T15:03:26.317Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 18,
+    "recipient": 7
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 55,
+  "fields": {
+    "attempt_time": "2025-12-06T15:06:16.927Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 14,
+    "recipient": 3
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 56,
+  "fields": {
+    "attempt_time": "2025-12-06T15:22:59.968Z",
+    "status": "failed",
+    "server_response": "При отправке возникла ошибка ['Неверный формат email']",
+    "mailing": 14,
+    "recipient": 3
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 57,
+  "fields": {
+    "attempt_time": "2025-12-08T11:24:40.598Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 20,
+    "recipient": 2
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 58,
+  "fields": {
+    "attempt_time": "2025-12-08T11:24:42.962Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 20,
+    "recipient": 2
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 59,
+  "fields": {
+    "attempt_time": "2025-12-08T13:29:49.816Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 8,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 60,
+  "fields": {
+    "attempt_time": "2025-12-12T10:35:50.342Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 13,
+    "recipient": 1
+  }
+},
+{
+  "model": "mailing_service.attemptsendmailing",
+  "pk": 61,
+  "fields": {
+    "attempt_time": "2025-12-12T10:35:51.719Z",
+    "status": "successful",
+    "server_response": "Рассылка успешно отправлена",
+    "mailing": 13,
+    "recipient": 7
+  }
+}
+]

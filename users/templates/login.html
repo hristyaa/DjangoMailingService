@@ -1,0 +1,29 @@
+{% extends 'mailing_service/base_inner.html' %}
+{% load my_tags %}
+
+{% block title %}Авторизация пользователя{% endblock %}
+
+{% block inner_content%}
+<h3 class="display-6">Авторизация пользователя</h3>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <form class="row" method="post" enctype="multipart/form-data">
+                <div class="card">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                    </div>
+                    <button type="submit" class="btn btn-secondary my-1">
+                        Войти
+                    </button>
+                    <a class="btn btn-outline-secondary my-2" href="{% url 'users:reset_password' %}" role="button"> Забыли пароль? </a>
+                    <a class="btn btn-outline-secondary my-2" href="{% url 'users:register' %}" role="button"> Зарегистрироваться </a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

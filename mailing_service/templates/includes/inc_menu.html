@@ -1,0 +1,21 @@
+<div class="d-flex justify-content-between w-100 ">
+    <h5 class="mb-0">Сервис управления рассылками</h5>
+    <nav class="nav nav-masthead justify-content-end ">
+        <a class="nav-link fw-bold py-1 px-1 small {% if request.resolver_match.url_name == 'home' %}active{% endif %}" aria-current="page" href="{% url 'mailing_service:home' %}">Главная</a>
+        {% if user.is_authenticated %}
+        <a class="nav-link fw-bold py-1 px-1 small {% if request.resolver_match.url_name == 'clients' %}active{% endif %}" href="{% url 'mailing_service:clients' %}">Клиенты</a>
+        <a class="nav-link fw-bold py-1 px-1 small {% if request.resolver_match.url_name == 'messages' %}active{% endif %}" href="{% url 'mailing_service:messages' %}">Сообщения</a>
+        <a class="nav-link fw-bold py-1 px-1 small {% if request.resolver_match.url_name == 'mailings' %}active{% endif %}" href="{% url 'mailing_service:mailings' %}">Рассылки</a>
+        <a class="nav-link fw-bold py-1 px-1 small {% if request.resolver_match.url_name == 'attempts' %}active{% endif %}" href="{% url 'mailing_service:attempts' %}">Попытки рассылок</a>
+        {% if perms.users.can_view_users_list or user.is_superuser %}
+        <a class="nav-link fw-bold py-1 px-1 small {% if request.resolver_match.url_name == 'users' %}active{% endif %}" href="{% url 'users:users' %}">Пользователи</a>
+        {% endif %}
+        <a class="nav-link fw-bold py-1 px-1 small {% if request.resolver_match.url_name == 'update_user' %}active{% endif %}" href="{% url 'users:update_user' user.pk %}">Редактирование профиля</a>
+        <a class="nav-link fw-bold py-1 px-1 small {% if request.resolver_match.url_name == 'logout' %}active{% endif %}" href="{% url 'users:logout' %}">Выход</a>
+        {% else %}
+        <a class="nav-link fw-bold py-1 px-1 small {% if request.resolver_match.url_name == 'login' %}active{% endif %}" href="{% url 'users:login' %}">Вход</a>
+        <a class="nav-link fw-bold py-1 px-1 small {% if request.resolver_match.url_name == 'register' %}active{% endif %}" href="{% url 'users:register' %}">Регистрация</a>
+        {% endif %}
+
+    </nav>
+</div>
