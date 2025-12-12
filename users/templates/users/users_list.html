@@ -23,6 +23,7 @@
                 </thead>
                 <tbody>
                 {% for user in account_user %}
+                {% if not user.is_superuser %}
                 <tr>
                     <td>{{ user.email }}</td>
                     <td>{{ user.phone }}</td>
@@ -63,6 +64,7 @@
                                 </button>
                                 </form>
                         {% endif %}
+                    {% endif %}
                     </td>
                 </tr>
                 {% endfor %}
