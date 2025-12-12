@@ -21,3 +21,9 @@ class UserLoginForm(AuthenticationForm):
                 "Аккаунт заблокирован.",
                 code="blocked"
             )
+
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['email', 'avatar', 'phone', 'country']

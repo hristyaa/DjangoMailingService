@@ -10,6 +10,7 @@
         {% if perms.users.can_view_users_list or user.is_superuser %}
         <a class="nav-link fw-bold py-1 px-1 small {% if request.resolver_match.url_name == 'users' %}active{% endif %}" href="{% url 'users:users' %}">Пользователи</a>
         {% endif %}
+        <a class="nav-link fw-bold py-1 px-1 small {% if request.resolver_match.url_name == 'update_user' %}active{% endif %}" href="{% url 'users:update_user' user.pk %}">Редактирование профиля</a>
         <a class="nav-link fw-bold py-1 px-1 small {% if request.resolver_match.url_name == 'logout' %}active{% endif %}" href="{% url 'users:logout' %}">Выход</a>
         {% else %}
         <a class="nav-link fw-bold py-1 px-1 small {% if request.resolver_match.url_name == 'login' %}active{% endif %}" href="{% url 'users:login' %}">Вход</a>

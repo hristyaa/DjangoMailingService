@@ -8,7 +8,7 @@ from users.views import (UserCreateView, UserDetailView, UserListView,
                          UserLoginView, UserPasswordResetCompleteView,
                          UserPasswordResetConfirmView,
                          UserPasswordResetDoneView, UserPasswordResetView,
-                         blocked_users, email_verification, unblocked_users)
+                         blocked_users, email_verification, unblocked_users, UserUpdateView)
 
 # from . import views
 
@@ -32,8 +32,10 @@ urlpatterns = [
 
     path('users/', UserListView.as_view(), name='users'),
     path('users/<int:pk>/', UserDetailView.as_view(), name='detail_user'),
+    path('users/update<int:pk>/', UserUpdateView.as_view(), name='update_user'),
     path('users/blocked/<int:pk>/', blocked_users, name="blocked_user"),
     path('users/unblocked/<int:pk>/', unblocked_users, name="unblocked_user"),
+
 ]
 
 if settings.DEBUG:

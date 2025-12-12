@@ -9,10 +9,10 @@ from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.urls.base import reverse
-from django.views.generic import (CreateView, DetailView, ListView)
+from django.views.generic import (CreateView, DetailView, ListView, UpdateView)
 
 from config import settings
-from users.forms import UserLoginForm, UserRegisterForm
+from users.forms import UserLoginForm, UserRegisterForm, UserUpdateForm
 from users.models import User
 
 
@@ -36,6 +36,20 @@ class UserCreateView(CreateView):
             recipient_list=[user.email]
         )
         return super().form_valid(form)
+
+
+class UserUpdateView(UpdateView):
+    model = User
+    form_class = UserUpdateForm
+    context_object_name = 'user'
+    template_name = "users/user_update.html"
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_success_url(self):
+        # Редирект на detail_user с pk текущего пользователя
+        return reverse("users:detail_user", kwargs={"pk": self.object.pk})
 
 
 def email_verification(request, token):
