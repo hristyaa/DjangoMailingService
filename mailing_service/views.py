@@ -231,7 +231,7 @@ class MailingSendView(View):
 
 
 def mailing_report(request):
-    # Получаем все текущего пользователя попытки, сортируя по времени
+    # Получаем все  попытки текущего пользователя, сортируя по времени
     if request.user.is_superuser or request.user.has_perm('mailing_service.can_view_all_mailings'):
         attempts = AttemptSendMailing.objects.order_by("-attempt_time")
         success_count = AttemptSendMailing.objects.filter(
