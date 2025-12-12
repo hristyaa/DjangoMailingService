@@ -3,45 +3,90 @@
   "model": "mailing_service.mailingrecipient",
   "pk": 1,
   "fields": {
+    "name": "Наделяйкин Дмитрий Алексеевич",
     "email": "kopstant99@yandex.ru",
-    "name": "Наделяев Дмитрий Алексеевич",
-    "comment": "технолог, муж"
+    "comment": "технолог",
+    "owner": null
   }
 },
 {
   "model": "mailing_service.mailingrecipient",
   "pk": 2,
   "fields": {
+    "name": "Шулманова Галина Алексеевна",
     "email": "uhfeuirfh@mail.ru",
-    "name": "Шулаева Галина Алексеевна",
-    "comment": "юрист"
+    "comment": "юрист",
+    "owner": 5
   }
 },
 {
   "model": "mailing_service.mailingrecipient",
   "pk": 3,
   "fields": {
-    "email": "tehnomania@mail.ru",
     "name": "Пенелопа",
-    "comment": "Кошка"
+    "email": "rtrte@bqwq.ru",
+    "comment": "Кошка",
+    "owner": null
   }
 },
 {
   "model": "mailing_service.mailingrecipient",
   "pk": 5,
   "fields": {
-    "email": "petrov@gmail.com",
     "name": "Петров Петр Петрович",
-    "comment": ""
+    "email": "petrov@gmail.com",
+    "comment": "",
+    "owner": null
   }
 },
 {
   "model": "mailing_service.mailingrecipient",
   "pk": 6,
   "fields": {
-    "email": "ivanov@mail.ru",
     "name": "Иванов Иван Владимирович",
-    "comment": "Рассылка один раз в месяц"
+    "email": "ivanov@mail.ru",
+    "comment": "Рассылка один раз в месяц",
+    "owner": null
+  }
+},
+{
+  "model": "mailing_service.mailingrecipient",
+  "pk": 7,
+  "fields": {
+    "name": "Наделяева Христина",
+    "email": "xelbr99@mail.ru",
+    "comment": "",
+    "owner": null
+  }
+},
+{
+  "model": "mailing_service.mailingrecipient",
+  "pk": 8,
+  "fields": {
+    "name": "Хорошее",
+    "email": "rtrte@mail.ru",
+    "comment": "",
+    "owner": null
+  }
+},
+{
+  "model": "mailing_service.mailingrecipient",
+  "pk": 9,
+  "fields": {
+    "name": "Петрушка",
+    "email": "dfdf@mail.ru",
+    "comment": "",
+    "owner": null
+  }
+},
+{
+  "model": "mailing_service.mailingrecipient",
+  "pk": 10,
+  "fields": {
+    "name": "Петр Петров",
+    "email": "tehnomania@mail.ru",
+    "comment": "",
+    "owner": 10
   }
 }
 ]

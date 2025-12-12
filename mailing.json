@@ -1,0 +1,314 @@
+[
+{
+  "model": "mailing_service.mailing",
+  "pk": 1,
+  "fields": {
+    "start_time": "2025-12-08T06:01:09.639Z",
+    "end_time": "2020-10-16T21:00:00Z",
+    "status": "completed",
+    "message": 1,
+    "created_at": "2025-11-09T13:24:24.600Z",
+    "owner": null,
+    "recipients": [
+      1,
+      3,
+      5,
+      2
+    ]
+  }
+},
+{
+  "model": "mailing_service.mailing",
+  "pk": 2,
+  "fields": {
+    "start_time": "2025-12-08T06:01:09.639Z",
+    "end_time": "2026-01-05T05:59:13.949Z",
+    "status": "launched",
+    "message": 8,
+    "created_at": "2025-11-09T13:41:48.325Z",
+    "owner": null,
+    "recipients": [
+      6,
+      1,
+      3
+    ]
+  }
+},
+{
+  "model": "mailing_service.mailing",
+  "pk": 3,
+  "fields": {
+    "start_time": "2025-12-06T06:42:09Z",
+    "end_time": "2025-12-06T06:45:00Z",
+    "status": "completed",
+    "message": 1,
+    "created_at": "2025-11-09T14:02:08.684Z",
+    "owner": null,
+    "recipients": [
+      6,
+      1
+    ]
+  }
+},
+{
+  "model": "mailing_service.mailing",
+  "pk": 4,
+  "fields": {
+    "start_time": "2025-12-06T10:56:09Z",
+    "end_time": "2025-12-16T21:00:00Z",
+    "status": "launched",
+    "message": 1,
+    "created_at": "2025-11-15T08:12:08.969Z",
+    "owner": null,
+    "recipients": [
+      1,
+      3,
+      5
+    ]
+  }
+},
+{
+  "model": "mailing_service.mailing",
+  "pk": 5,
+  "fields": {
+    "start_time": "2025-12-08T06:01:09Z",
+    "end_time": "2025-12-19T01:28:00Z",
+    "status": "launched",
+    "message": 7,
+    "created_at": "2025-11-15T14:28:21.511Z",
+    "owner": 8,
+    "recipients": [
+      1
+    ]
+  }
+},
+{
+  "model": "mailing_service.mailing",
+  "pk": 6,
+  "fields": {
+    "start_time": "2025-12-06T09:28:09Z",
+    "end_time": "2025-12-07T14:49:00Z",
+    "status": "completed",
+    "message": 1,
+    "created_at": "2025-12-06T05:51:41.466Z",
+    "owner": null,
+    "recipients": [
+      1
+    ]
+  }
+},
+{
+  "model": "mailing_service.mailing",
+  "pk": 7,
+  "fields": {
+    "start_time": "2025-12-06T13:32:09Z",
+    "end_time": "2025-12-06T20:59:00Z",
+    "status": "completed",
+    "message": 1,
+    "created_at": "2025-12-06T05:51:51.608Z",
+    "owner": null,
+    "recipients": [
+      7
+    ]
+  }
+},
+{
+  "model": "mailing_service.mailing",
+  "pk": 8,
+  "fields": {
+    "start_time": "2025-12-06T11:02:00Z",
+    "end_time": "2025-12-27T12:01:00Z",
+    "status": "launched",
+    "message": 1,
+    "created_at": "2025-12-06T06:19:35.345Z",
+    "owner": null,
+    "recipients": [
+      1
+    ]
+  }
+},
+{
+  "model": "mailing_service.mailing",
+  "pk": 9,
+  "fields": {
+    "start_time": "2025-12-06T06:40:00Z",
+    "end_time": "2025-12-06T15:23:00Z",
+    "status": "completed",
+    "message": 9,
+    "created_at": "2025-12-06T06:23:38.482Z",
+    "owner": null,
+    "recipients": [
+      5
+    ]
+  }
+},
+{
+  "model": "mailing_service.mailing",
+  "pk": 10,
+  "fields": {
+    "start_time": "2025-12-06T12:36:00Z",
+    "end_time": "2025-12-06T13:31:00Z",
+    "status": "completed",
+    "message": 9,
+    "created_at": "2025-12-06T06:31:08.572Z",
+    "owner": null,
+    "recipients": [
+      6,
+      1,
+      7
+    ]
+  }
+},
+{
+  "model": "mailing_service.mailing",
+  "pk": 11,
+  "fields": {
+    "start_time": "2025-12-06T09:33:00Z",
+    "end_time": "2025-12-06T13:31:00Z",
+    "status": "completed",
+    "message": 9,
+    "created_at": "2025-12-06T06:33:58.719Z",
+    "owner": null,
+    "recipients": [
+      3
+    ]
+  }
+},
+{
+  "model": "mailing_service.mailing",
+  "pk": 12,
+  "fields": {
+    "start_time": "2025-12-06T06:38:00Z",
+    "end_time": "2025-12-06T12:41:00Z",
+    "status": "completed",
+    "message": null,
+    "created_at": "2025-12-06T06:36:39.138Z",
+    "owner": null,
+    "recipients": []
+  }
+},
+{
+  "model": "mailing_service.mailing",
+  "pk": 13,
+  "fields": {
+    "start_time": "2025-12-06T12:57:00Z",
+    "end_time": "2025-12-13T12:38:00Z",
+    "status": "launched",
+    "message": 5,
+    "created_at": "2025-12-06T06:38:30.778Z",
+    "owner": null,
+    "recipients": [
+      1,
+      7
+    ]
+  }
+},
+{
+  "model": "mailing_service.mailing",
+  "pk": 14,
+  "fields": {
+    "start_time": "2025-12-06T15:06:00Z",
+    "end_time": "2025-12-06T21:27:00Z",
+    "status": "completed",
+    "message": 9,
+    "created_at": "2025-12-06T09:22:06.106Z",
+    "owner": null,
+    "recipients": [
+      3
+    ]
+  }
+},
+{
+  "model": "mailing_service.mailing",
+  "pk": 15,
+  "fields": {
+    "start_time": "2025-12-06T11:20:00Z",
+    "end_time": "2025-12-06T19:19:00Z",
+    "status": "completed",
+    "message": 1,
+    "created_at": "2025-12-06T11:17:47.581Z",
+    "owner": null,
+    "recipients": [
+      1,
+      7,
+      3
+    ]
+  }
+},
+{
+  "model": "mailing_service.mailing",
+  "pk": 16,
+  "fields": {
+    "start_time": "2025-12-06T14:01:00Z",
+    "end_time": "2025-12-06T16:59:00Z",
+    "status": "completed",
+    "message": 9,
+    "created_at": "2025-12-06T14:00:34.277Z",
+    "owner": null,
+    "recipients": [
+      7
+    ]
+  }
+},
+{
+  "model": "mailing_service.mailing",
+  "pk": 17,
+  "fields": {
+    "start_time": "2025-12-06T15:01:00Z",
+    "end_time": "2025-12-07T00:00:00Z",
+    "status": "completed",
+    "message": 6,
+    "created_at": "2025-12-06T15:00:18.616Z",
+    "owner": null,
+    "recipients": [
+      1
+    ]
+  }
+},
+{
+  "model": "mailing_service.mailing",
+  "pk": 18,
+  "fields": {
+    "start_time": "2025-12-06T15:03:00Z",
+    "end_time": "2025-12-07T02:04:00Z",
+    "status": "completed",
+    "message": 9,
+    "created_at": "2025-12-06T15:01:49.072Z",
+    "owner": null,
+    "recipients": [
+      1,
+      7
+    ]
+  }
+},
+{
+  "model": "mailing_service.mailing",
+  "pk": 19,
+  "fields": {
+    "start_time": "2025-12-07T13:12:00Z",
+    "end_time": "2025-12-07T20:11:00Z",
+    "status": "completed",
+    "message": 12,
+    "created_at": "2025-12-07T13:11:48.380Z",
+    "owner": 5,
+    "recipients": [
+      1
+    ]
+  }
+},
+{
+  "model": "mailing_service.mailing",
+  "pk": 20,
+  "fields": {
+    "start_time": "2025-12-08T11:24:00Z",
+    "end_time": "2025-12-08T19:25:00Z",
+    "status": "completed",
+    "message": 14,
+    "created_at": "2025-12-08T11:23:18.897Z",
+    "owner": 5,
+    "recipients": [
+      2
+    ]
+  }
+}
+]
